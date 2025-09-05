@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Making Software: Social Listening Networks</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .header .meta {
+            font-size: 14px;
+            color: #999;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Content */
+        .content {
+            margin-bottom: 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 40px 0 15px 0;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            background: #fafafa;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Network Visualization */
+        .viz-container {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            margin: 40px 0;
+            padding: 0;
+        }
+
+        .viz-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .viz-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .viz-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .network-svg {
+            width: 100%;
+            height: 500px;
+            background: #f5f5f5;
+            display: block;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #1a1a1a;
+            color: #fafafa;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid #333;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: #888;
+        }
+
+        /* Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .process-item {
+            background: #fafafa;
+            padding: 30px;
+            position: relative;
+        }
+
+        .process-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .process-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .process-desc {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Lists */
+        .feature-list {
+            margin: 30px 0;
+        }
+
+        .feature-list li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .toc-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .toc-list li::before {
+            content: "[ " counter(item, decimal-leading-zero) " ]";
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        .toc-list {
+            counter-reset: item;
+        }
+
+        /* Progress bar */
+        .progress-container {
+            margin: 40px 0;
+            padding: 20px;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+        }
+
+        .progress-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: #1a1a1a;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .section h2 {
+                font-size: 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* D3 Network Styles */
+        .node {
+            cursor: pointer;
+            stroke-width: 2px;
+        }
+
+        .node.cluster {
+            fill: #1a1a1a;
+            stroke: #333;
+        }
+
+        .node.keyword {
+            fill: #666;
+            stroke: #888;
+        }
+
+        .node.platform {
+            fill: #999;
+            stroke: #bbb;
+        }
+
+        .link {
+            stroke: #ccc;
+            stroke-opacity: 0.6;
+            stroke-width: 1px;
+        }
+
+        .node-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            fill: #1a1a1a;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            padding: 8px 12px;
+            background: #1a1a1a;
+            color: #fafafa;
+            border: 1px solid #333;
+            font-size: 12px;
+            font-family: 'Space Mono', monospace;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        /* Highlighted text */
+        .highlight {
+            background: #ffffcc;
+            padding: 2px 4px;
+        }
+
+        em {
+            font-style: italic;
+            color: #1a1a1a;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Making Software: Social Listening Networks</h1>
+            <div class="subtitle">
+                Have you ever wondered how AI can turn thousands of social media conversations into targeted marketing campaigns? Or how network analysis reveals hidden patterns in developer communities?
+            </div>
+            <div class="meta">
+                <span>Case Study</span>
+                <span>•</span>
+                <span>Cursor AI Interview Project</span>
+                <span>•</span>
+                <span>Network Analysis + AI Agents</span>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="section">
+                <p class="intro-text">
+                    Most companies track social media mentions like counting cars on a highway—they see volume and direction, but miss the complex web of relationships that actually drive conversations.
+                </p>
+                
+                <p class="intro-text">
+                    This project demonstrates a different approach: mapping the ecosystem of developer conversations as a network, then using AI agents to generate targeted content based on real community discussions.
+                </p>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">500</div>
+                        <div class="stat-label">social mentions</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">conversation clusters</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">platform networks</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">ai output types</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>How it works</h2>
+                
+                <p>
+                    Traditional social listening is like reading individual letters. Network analysis is like understanding the entire conversation structure—who influences whom, which topics cluster together, and how ideas flow between communities.
+                </p>
+
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">Social Listening Network Graph</div>
+                        <div class="viz-subtitle">Interactive visualization of conversation relationships</div>
+                    </div>
+                    <svg class="network-svg" id="network-viz"></svg>
+                    <div class="tooltip" id="tooltip"></div>
+                </div>
+
+                <p>
+                    Each node represents a different entity in our ecosystem: <strong>black nodes</strong> are conversation clusters (pain points, use cases), <strong>gray nodes</strong> are keywords and topics, <strong>light gray nodes</strong> are social platforms.
+                </p>
+
+                <p>
+                    The connections between nodes reveal something interesting—conversations don't happen in isolation. Pain points about "context switching" connect to use cases about "AI pair programming" across multiple platforms. These patterns become the foundation for targeted content generation.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The three-layer system</h2>
+
+                <div class="process-grid">
+                    <div class="process-item">
+                        <div class="process-number">[ layer 01 ]</div>
+                        <div class="process-title">Network Discovery</div>
+                        <div class="process-desc">
+                            Map conversations as interconnected networks rather than isolated mentions. Identify clusters, influencers, and relationship patterns that reveal market structure.
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">[ layer 02 ]</div>
+                        <div class="process-title">AI Content Generation</div>
+                        <div class="process-desc">
+                            Use conversation context to generate personalized email sequences, thought leadership content, and market intelligence that references real developer discussions.
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">[ layer 03 ]</div>
+                        <div class="process-title">Growth Activation</div>
+                        <div class="process-desc">
+                            Transform insights into action: identify key influencers, predict trending topics, optimize content distribution, and personalize outreach at scale.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The technical implementation</h2>
+
+                <p>
+                    The system combines several interesting approaches to turn raw social data into actionable intelligence:
+                </p>
+
+                <div class="code-block">
+<span class="comment"># Conversation clustering algorithm</span>
+clusters = {
+    "Direct Product Mentions": { weight: 0.25 },
+    "Functional Use Cases": { weight: 0.20 },
+    "Pain Points & JTBD": { weight: 0.15 },
+    "Technical Context": { weight: 0.15 },
+    "Sentiment & Adoption": { weight: 0.15 },
+    "Emerging Conversations": { weight: 0.10 }
+}
+
+<span class="comment"># Network generation</span>
+def create_gephi_network(mentions):
+    nodes = extract_entities(mentions)  <span class="comment"># clusters, keywords, platforms</span>
+    edges = calculate_relationships(mentions)  <span class="comment"># weighted connections</span>
+    return network_graph(nodes, edges)
+
+<span class="comment"># AI content generation</span>
+def generate_content(network_insights):
+    context = prepare_conversation_context(insights)
+    email_sequences = gemini_api.generate_emails(context)
+    blog_posts = gemini_api.generate_blogs(context)
+    return personalized_content
+                </div>
+
+                <p>
+                    The interesting part isn't just the network analysis—it's how the AI agents use conversation context to generate content that feels authentic because it's based on real developer discussions, not marketing assumptions.
+                </p>
+
+                <h3>What makes this different</h3>
+
+                <p>
+                    Most social listening tools tell you what people are saying. This system tells you <em>how conversations connect</em> and then acts on those connections.
+                </p>
+
+                <ul class="feature-list">
+                    <li>Network analysis reveals conversation clusters invisible to traditional monitoring</li>
+                    <li>AI agents generate content that references real community discussions</li>
+                    <li>Growth strategies based on actual relationship patterns, not demographic assumptions</li>
+                    <li>Continuous content generation that adapts to evolving conversations</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Why this matters for Cursor AI</h2>
+
+                <p>
+                    For a company building AI-assisted development tools, this approach offers several strategic advantages that traditional marketing can't match:
+                </p>
+
+                <p>
+                    <strong>Developer-first intelligence:</strong> The system captures how developers actually discuss coding challenges, productivity bottlenecks, and tool adoption—not how marketing teams imagine they do.
+                </p>
+
+                <p>
+                    <strong>Product-market fit validation:</strong> Network analysis reveals which features generate organic discussion and which use cases resonate most with different developer communities.
+                </p>
+
+                <p>
+                    <strong>Authentic content at scale:</strong> AI-generated emails and blog posts feel genuine because they're grounded in real conversation patterns, pain points, and community dynamics.
+                </p>
+
+                <div class="toc">
+                    <div class="toc-title">System Outputs</div>
+                    <ul class="toc-list">
+                        <li>Gephi-compatible network files for relationship analysis</li>
+                        <li>Personalized email sequences for cold outreach</li>
+                        <li>Thought leadership blog posts addressing trending topics</li>
+                        <li>Competitive intelligence reports based on conversation flow</li>
+                        <li>Community influence mapping for strategic partnerships</li>
+                    </ul>
+                </div>
+
+                <p>
+                    The network doesn't lie. When developers discuss "context switching" as a productivity killer, or get excited about "AI pair programming" as a workflow revolution, that's genuine market intelligence—not survey responses or focus group feedback.
+                </p>
+
+                <h3>The implementation advantage</h3>
+
+                <p>
+                    This isn't theoretical. The system generates real outputs: personalized email sequences that reference specific developer pain points, blog posts that address trending community discussions, and network analysis that reveals competitive positioning opportunities.
+                </p>
+
+                <p>
+                    For Cursor AI, this means marketing that speaks the language of their actual users, content that addresses real developer challenges, and growth strategies based on how conversations actually flow through developer communities.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Current progress</h2>
+                
+                <div class="progress-container">
+                    <div class="progress-label">development status</div>
+                    <div class="progress-bar">███████████▓▒░░░░░░░░░░░░░░</div>
+                </div>
+
+                <p>
+                    This demonstration represents a working prototype. The next phase would involve scaling to thousands of daily conversations, implementing real-time monitoring, and adding predictive analytics to identify trending topics before they become mainstream.
+                </p>
+
+                <p>
+                    The foundation is solid: network analysis that reveals relationship patterns, AI agents that generate authentic content, and a growth framework that turns community insights into business outcomes.
+                </p>
+
+                <p>
+                    Pretty neat, right?
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // D3.js Network Visualization
+        document.addEventListener('DOMContentLoaded', function() {
+            const svg = d3.select("#network-viz");
+            const width = svg.node().getBoundingClientRect().width;
+            const height = 500;
+            
+            svg.attr("width", width).attr("height", height);
+            
+            // Sample network data
+            const nodes = [
+                // Clusters
+                { id: "Pain Points", type: "cluster", size: 16, mentions: 75 },
+                { id: "Use Cases", type: "cluster", size: 18, mentions: 100 },
+                { id: "Emerging Trends", type: "cluster", size: 14, mentions: 50 },
+                
+                // Keywords
+                { id: "AI Pair Programming", type: "keyword", size: 10, mentions: 45 },
+                { id: "Code Generation", type: "keyword", size: 12, mentions: 60 },
+                { id: "Developer Productivity", type: "keyword", size: 9, mentions: 35 },
+                { id: "Context Switching", type: "keyword", size: 8, mentions: 25 },
+                { id: "Boilerplate Code", type: "keyword", size: 10, mentions: 40 },
+                { id: "API Integration", type: "keyword", size: 8, mentions: 30 },
+                
+                // Platforms
+                { id: "Reddit", type: "platform", size: 13, mentions: 80 },
+                { id: "Discord", type: "platform", size: 11, mentions: 65 },
+                { id: "GitHub", type: "platform", size: 10, mentions: 55 },
+                { id: "Twitter", type: "platform", size: 9, mentions: 50 },
+                { id: "Stack Overflow", type: "platform", size: 9, mentions: 45 }
+            ];
+            
+            const links = [
+                // Cluster to keyword connections
+                { source: "Pain Points", target: "Context Switching", value: 8 },
+                { source: "Pain Points", target: "Boilerplate Code", value: 12 },
+                { source: "Use Cases", target: "AI Pair Programming", value: 15 },
+                { source: "Use Cases", target: "Code Generation", value: 18 },
+                { source: "Use Cases", target: "Developer Productivity", value: 10 },
+                { source: "Emerging Trends", target: "API Integration", value: 8 },
+                
+                // Platform connections
+                { source: "Reddit", target: "Pain Points", value: 10 },
+                { source: "Reddit", target: "Use Cases", value: 12 },
+                { source: "Discord", target: "Use Cases", value: 8 },
+                { source: "GitHub", target: "Emerging Trends", value: 6 },
+                { source: "Twitter", target: "Emerging Trends", value: 7 },
+                { source: "Stack Overflow", target: "Pain Points", value: 9 },
+                
+                // Keyword cross-connections
+                { source: "AI Pair Programming", target: "Code Generation", value: 5 },
+                { source: "Developer Productivity", target: "Context Switching", value: 4 },
+                { source: "Boilerplate Code", target: "Code Generation", value: 6 }
+            ];
+            
+            // Create tooltip
+            const tooltip = d3.select("#tooltip");
+            
+            // Create simulation
+            const simulation = d3.forceSimulation(nodes)
+                .force("link", d3.forceLink(links).id(d => d.id).distance(60))
+                .force("charge", d3.forceManyBody().strength(-200))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(d => d.size + 3));
+            
+            // Create links
+            const link = svg.append("g")
+                .attr("class", "links")
+                .selectAll("line")
+                .data(links)
+                .enter().append("line")
+                .attr("class", "link")
+                .attr("stroke-width", d => Math.sqrt(d.value) * 0.8);
+            
+            // Create nodes
+            const node = svg.append("g")
+                .attr("class", "nodes")
+                .selectAll("circle")
+                .data(nodes)
+                .enter().append("circle")
+                .attr("class", d => `node ${d.type}`)
+                .attr("r", d => d.size)
+                .on("mouseover", function(event, d) {
+                    tooltip.transition().duration(200).style("opacity", 1);
+                    tooltip.html(`${d.id}<br/>type: ${d.type}<br/>mentions: ${d.mentions}`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 10) + "px");
+                    
+                    d3.select(this).transition().duration(100).attr("r", d.size * 1.3);
+                })
+                .on("mouseout", function(event, d) {
+                    tooltip.transition().duration(200).style("opacity", 0);
+                    d3.select(this).transition().duration(100).attr("r", d.size);
+                })
+                .call(d3.drag()
+                    .on("start", dragstarted)
+                    .on("drag", dragged)
+                    .on("end", dragended));
+            
+            // Add labels
+            const labels = svg.append("g")
+                .attr("class", "labels")
+                .selectAll("text")
+                .data(nodes)
+                .enter().append("text")
+                .attr("class", "node-label")
+                .text(d => d.id)
+                .style("font-size", "10px");
+            
+            // Update positions on simulation tick
+            simulation.on("tick", () => {
+                link
+                    .attr("x1", d => d.source.x)
+                    .attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x)
+                    .attr("y2", d => d.target.y);
+                
+                node
+                    .attr("cx", d => Math.max(d.size, Math.min(width - d.size, d.x)))
+                    .attr("cy", d => Math.max(d.size, Math.min(height - d.size, d.y)));
+                
+                labels
+                    .attr("x", d => d.x)
+                    .attr("y", d => d.y + d.size + 12);
+            });
+            
+            // Drag functions
+            function dragstarted(event, d) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+            
+            function dragged(event, d) {
+                d.fx = event.x;
+                d.fy = event.y;
+            }
+            
+            function dragended(event, d) {
+                if (!event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+            
+            // Simplified animation
+            node.attr("r", 0)
+                .transition()
+                .duration(800)
+                .delay((d, i) => i * 30)
+                .attr("r", d => d.size);
+        });
+    </script>
+</body>
+</html>
