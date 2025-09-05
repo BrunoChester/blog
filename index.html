@@ -382,54 +382,29 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Making Software: Social Listening Networks</h1>
+            <h1>Social Network Analysis → content creation pipeline: AI powered automation for top of funnel engagement</h1>
             <div class="subtitle">
-                Have you ever wondered how AI can turn thousands of social media conversations into targeted marketing campaigns? Or how network analysis reveals hidden patterns in developer communities?
-            </div>
-            <div class="meta">
-                <span>Case Study</span>
-                <span>•</span>
-                <span>Cursor AI Interview Project</span>
-                <span>•</span>
-                <span>Network Analysis + AI Agents</span>
+            Hi there, my name is Bruno Chester Leardine. It is such a pleasure to be going through this interview process and I hope that we work together soon.<br>
+            Most recently I led GitHub Copilot's original GTM launch and Vercel's automated GTM engine. I am currently at Microsoft and my latest contribution can be seen in Beta here:https://adoption.microsoft.com/en-us/project-sophia/<br>
             </div>
         </header>
 
         <main class="content">
             <section class="section">
                 <p class="intro-text">
-                    Most companies track social media mentions like counting cars on a highway—they see volume and direction, but miss the complex web of relationships that actually drive conversations.
+                    Most companies track social media mentions by volume and sentiment. This is a commoditized approach that misses the complex web of relationships that actually drive conversations.
                 </p>
                 
                 <p class="intro-text">
                     This project demonstrates a different approach: mapping the ecosystem of developer conversations as a network, then using AI agents to generate targeted content based on real community discussions.
                 </p>
-
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">500</div>
-                        <div class="stat-label">social mentions</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">6</div>
-                        <div class="stat-label">conversation clusters</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">8</div>
-                        <div class="stat-label">platform networks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">3</div>
-                        <div class="stat-label">ai output types</div>
-                    </div>
-                </div>
             </section>
 
             <section class="section">
                 <h2>How it works</h2>
                 
                 <p>
-                    Traditional social listening is like reading individual letters. Network analysis is like understanding the entire conversation structure—who influences whom, which topics cluster together, and how ideas flow between communities.
+                    Traditional social listening is like reading individual letters. Network analysis is like understanding the entire conversation structure. We are looking at who influences whom, which topics cluster together, and how ideas flow between communities.
                 </p>
 
                 <div class="viz-container">
@@ -446,7 +421,7 @@
                 </p>
 
                 <p>
-                    The connections between nodes reveal something interesting—conversations don't happen in isolation. Pain points about "context switching" connect to use cases about "AI pair programming" across multiple platforms. These patterns become the foundation for targeted content generation.
+                    The connections between nodes reveal that conversations don't happen in isolation (<i>the isolated approach is what everyone else is doing</i>).<br>Pain points about "context switching" connect to use cases about "AI pair programming" across multiple platforms. These patterns become the foundation for targeted content generation.
                 </p>
             </section>
 
@@ -497,13 +472,13 @@ clusters = {
     "Sentiment & Adoption": { weight: 0.15 },
     "Emerging Conversations": { weight: 0.10 }
 }
-
+<br>
 <span class="comment"># Network generation</span>
 def create_gephi_network(mentions):
     nodes = extract_entities(mentions)  <span class="comment"># clusters, keywords, platforms</span>
     edges = calculate_relationships(mentions)  <span class="comment"># weighted connections</span>
     return network_graph(nodes, edges)
-
+<br>
 <span class="comment"># AI content generation</span>
 def generate_content(network_insights):
     context = prepare_conversation_context(insights)
@@ -531,14 +506,14 @@ def generate_content(network_insights):
             </section>
 
             <section class="section">
-                <h2>Why this matters for Cursor AI</h2>
+                <h2>Why this matters for Cursor</h2>
 
                 <p>
                     For a company building AI-assisted development tools, this approach offers several strategic advantages that traditional marketing can't match:
                 </p>
 
                 <p>
-                    <strong>Developer-first intelligence:</strong> The system captures how developers actually discuss coding challenges, productivity bottlenecks, and tool adoption—not how marketing teams imagine they do.
+                    <strong>Developer-first intelligence:</strong> The system captures how developers actually discuss coding challenges, productivity bottlenecks, and tool adoption. It is a nuance rich approach.
                 </p>
 
                 <p>
@@ -549,7 +524,41 @@ def generate_content(network_insights):
                     <strong>Authentic content at scale:</strong> AI-generated emails and blog posts feel genuine because they're grounded in real conversation patterns, pain points, and community dynamics.
                 </p>
 
-                <div class="toc">
+                <p>
+                When developers discuss "context switching" as a productivity killer, or get excited about "AI pair programming" as a workflow revolution, that's genuine market intelligence—not survey responses or focus group feedback.
+                </p>
+
+                <h3>The implementation advantage</h3>
+
+                <p>
+                    This isn't theoretical. The system generates real outputs: personalized email sequences that reference specific developer pain points, blog posts that address trending community discussions, and network analysis that reveals competitive positioning opportunities.
+                </p>
+
+                <p>
+                    For Cursor, this means marketing that speaks the language of their actual users, Sales content that addresses real developer challenges, and growth strategies based on how conversations actually flow through developer communities.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Current progress</h2>
+                
+                <p>
+                    This demonstration represents a working prototype. Feel free to ask for the code source if that interests you.
+                </p>
+
+                <p>
+                    The foundation is solid:<br>
+                    --> network analysis that reveals relationship patterns<br> 
+                    --> AI agents that use the network output to generate authentic content <br> 
+                    --> growth/marketingsales top of funnel framework that turns community insights into business outcomes.
+                </p>
+
+                <p>
+                    Let's scale this together?<br>
+                    Thank you for reading until here -- I hope you have a great day!<br>
+                    Bruno Chester Leardine
+                </p>
+                            <div class="toc">
                     <div class="toc-title">Cold Outreach Email Sequences Outputs</div>
                     <p>
 
@@ -810,36 +819,6 @@ TOPIC: Pain Points & JTBD
 <p>Are you just buying tools, or are you investing in your people? Because ultimately, these AI tools, when implemented thoughtfully, aren't just about lines of code. They’re about giving your brilliant engineers back their time, their focus, and their joy in building amazing things. And honestly, for a software leader, what could be a better return on investment than that? We're on the cusp of truly redefining the developer experience, moving past the unseen burdens and towards a future where human creativity, augmented by intelligent machines, can really soar. Let’s make sure we lead our teams there with purpose and empathy.</p>
 
                 </div>
-
-                <p>
-                    The network doesn't lie. When developers discuss "context switching" as a productivity killer, or get excited about "AI pair programming" as a workflow revolution, that's genuine market intelligence—not survey responses or focus group feedback.
-                </p>
-
-                <h3>The implementation advantage</h3>
-
-                <p>
-                    This isn't theoretical. The system generates real outputs: personalized email sequences that reference specific developer pain points, blog posts that address trending community discussions, and network analysis that reveals competitive positioning opportunities.
-                </p>
-
-                <p>
-                    For Cursor AI, this means marketing that speaks the language of their actual users, content that addresses real developer challenges, and growth strategies based on how conversations actually flow through developer communities.
-                </p>
-            </section>
-
-            <section class="section">
-                <h2>Current progress</h2>
-                
-                <p>
-                    This demonstration represents a working prototype. The next phase would involve scaling to thousands of daily conversations, implementing real-time monitoring, and adding predictive analytics to identify trending topics before they become mainstream.
-                </p>
-
-                <p>
-                    The foundation is solid: network analysis that reveals relationship patterns, AI agents that generate authentic content, and a growth framework that turns community insights into business outcomes.
-                </p>
-
-                <p>
-                    Pretty neat, right?
-                </p>
             </section>
         </main>
     </div>
