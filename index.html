@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Making Software: Social Listening Networks</title>
+    <title>Social Listening Networks</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
@@ -56,6 +56,271 @@
             display: flex;
             gap: 20px;
         }
+
+        /* INTEGRATED DIAGRAM STYLES */
+        .diagram-container {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 0;
+        }
+
+        .diagram-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .diagram-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .flow-diagram {
+            padding: 60px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .flow-stage {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stage-number {
+            font-size: 12px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stage-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #1a1a1a;
+            background: #fafafa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .stage-icon:hover {
+            background: #1a1a1a;
+            color: #fafafa;
+        }
+
+        .stage-icon::before {
+            content: attr(data-icon);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .stage-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .stage-description {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            max-width: 200px;
+            line-height: 1.4;
+        }
+
+        .stage-details {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #999;
+            text-align: center;
+            max-width: 180px;
+        }
+
+        /* Flow arrows */
+        .flow-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            color: #ccc;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .arrow-1 {
+            left: calc(33.33% - 20px);
+        }
+
+        .arrow-2 {
+            right: calc(33.33% - 20px);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translateY(-50%) translateX(0); }
+            50% { opacity: 1; transform: translateY(-50%) translateX(5px); }
+        }
+
+        /* Data sources visualization */
+        .data-sources {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .data-point {
+            width: 8px;
+            height: 8px;
+            background: #666;
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .data-point:nth-child(1) { animation-delay: 0s; }
+        .data-point:nth-child(2) { animation-delay: 0.3s; }
+        .data-point:nth-child(3) { animation-delay: 0.6s; }
+        .data-point:nth-child(4) { animation-delay: 0.9s; }
+        .data-point:nth-child(5) { animation-delay: 1.2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* Network visualization */
+        .network-preview {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+
+        .network-node {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #1a1a1a;
+            border-radius: 50%;
+        }
+
+        .network-node:nth-child(1) { top: 5px; left: 10px; }
+        .network-node:nth-child(2) { top: 15px; left: 30px; }
+        .network-node:nth-child(3) { top: 25px; left: 15px; }
+        .network-node:nth-child(4) { top: 8px; left: 45px; }
+
+        .network-line {
+            position: absolute;
+            height: 1px;
+            background: #ccc;
+            transform-origin: left center;
+        }
+
+        .network-line:nth-child(5) {
+            top: 8px;
+            left: 13px;
+            width: 20px;
+            transform: rotate(15deg);
+        }
+
+        .network-line:nth-child(6) {
+            top: 18px;
+            left: 18px;
+            width: 15px;
+            transform: rotate(-25deg);
+        }
+
+        /* Output visualization */
+        .output-preview {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1.5s forwards;
+        }
+
+        .output-item {
+            width: 16px;
+            height: 20px;
+            background: #1a1a1a;
+            position: relative;
+        }
+
+        .output-item::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            height: 1px;
+            background: #fafafa;
+        }
+
+        .output-item::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 2px;
+            right: 4px;
+            height: 1px;
+            background: #fafafa;
+        }
+
+        /* Subtle animation on load */
+        .stage-icon {
+            animation: scaleIn 0.6s ease forwards;
+            transform: scale(0);
+        }
+
+        .flow-stage:nth-child(1) .stage-icon { animation-delay: 0.2s; }
+        .flow-stage:nth-child(3) .stage-icon { animation-delay: 0.4s; }
+        .flow-stage:nth-child(5) .stage-icon { animation-delay: 0.6s; }
+
+        @keyframes scaleIn {
+            to { transform: scale(1); }
+        }
+        /* END DIAGRAM STYLES */
 
         /* Content */
         .content {
@@ -311,6 +576,33 @@
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            /* Diagram responsive */
+            .flow-diagram {
+                flex-direction: column;
+                gap: 60px;
+                padding: 40px 20px;
+            }
+
+            .flow-arrow {
+                position: static;
+                transform: rotate(90deg);
+                margin: 20px 0;
+            }
+
+            .arrow-1, .arrow-2 {
+                left: auto;
+                right: auto;
+                top: auto;
+            }
+
+            .stage-title {
+                font-size: 16px;
+            }
+
+            .stage-description {
+                max-width: 250px;
+            }
         }
 
         /* D3 Network Styles */
@@ -382,12 +674,92 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Social Network Analysis → content creation pipeline: AI powered automation for top of funnel engagement</h1>
+            <h1>Social Network Analysis → top of funnel engagement growth framework</h1>
             <div class="subtitle">
             Hi there, my name is Bruno Chester Leardine. It is such a pleasure to be going through this interview process and I hope that we work together soon.<br>
-            Most recently I led GitHub Copilot's original GTM launch and Vercel's automated GTM engine. I am currently at Microsoft and my latest contribution can be seen in Beta here:https://adoption.microsoft.com/en-us/project-sophia/<br>
+            Most recently I led GitHub Copilot's original GTM launch and Vercel's automated GTM engine.<br>
+                I am currently at Microsoft and my latest contribution to Project Sophia in Beta <a href:"https://adoption.microsoft.com/en-us/project-sophia/>here"</a><br>
             </div>
         </header>
+
+        <!-- INTEGRATED DIAGRAM -->
+        <div class="diagram-container">
+            <div class="diagram-header">
+                <div class="diagram-title">Three-Layer Social Intelligence System</div>
+                <div class="diagram-subtitle">From raw conversations to actionable growth content</div>
+            </div>
+            
+            <div class="flow-diagram">
+                <!-- Stage 1: Data Collection -->
+                <div class="flow-stage">
+                    <div class="stage-number">[ layer 01 ]</div>
+                    <div class="stage-icon" data-icon="◉">
+                        <div class="data-sources">
+                            <div class="data-point"></div>
+                            <div class="data-point"></div>
+                            <div class="data-point"></div>
+                            <div class="data-point"></div>
+                            <div class="data-point"></div>
+                        </div>
+                    </div>
+                    <div class="stage-title">Social Listening</div>
+                    <div class="stage-description">
+                        Collect conversations from developer communities across platforms
+                    </div>
+                    <div class="stage-details">
+                        Reddit, Discord, GitHub, Stack Overflow, Twitter → raw mention data
+                    </div>
+                </div>
+
+                <!-- Arrow 1 -->
+                <div class="flow-arrow arrow-1">→</div>
+
+                <!-- Stage 2: Network Analysis -->
+                <div class="flow-stage">
+                    <div class="stage-number">[ layer 02 ]</div>
+                    <div class="stage-icon" data-icon="◈">
+                        <div class="network-preview">
+                            <div class="network-node"></div>
+                            <div class="network-node"></div>
+                            <div class="network-node"></div>
+                            <div class="network-node"></div>
+                            <div class="network-line"></div>
+                            <div class="network-line"></div>
+                        </div>
+                    </div>
+                    <div class="stage-title">Network Analysis</div>
+                    <div class="stage-description">
+                        Map relationships, clusters, and conversation patterns
+                    </div>
+                    <div class="stage-details">
+                        Gephi-style network graphs → relationship intelligence
+                    </div>
+                </div>
+
+                <!-- Arrow 2 -->
+                <div class="flow-arrow arrow-2">→</div>
+
+                <!-- Stage 3: Content Generation -->
+                <div class="flow-stage">
+                    <div class="stage-number">[ layer 03 ]</div>
+                    <div class="stage-icon" data-icon="◎">
+                        <div class="output-preview">
+                            <div class="output-item"></div>
+                            <div class="output-item"></div>
+                            <div class="output-item"></div>
+                        </div>
+                    </div>
+                    <div class="stage-title">AI Content Agents</div>
+                    <div class="stage-description">
+                        Generate personalized outreach and thought leadership
+                    </div>
+                    <div class="stage-details">
+                        Email sequences, blog posts, growth strategies → authentic content at scale
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END INTEGRATED DIAGRAM -->
 
         <main class="content">
             <section class="section">
@@ -488,7 +860,7 @@ def generate_content(network_insights):
                 </div>
 
                 <p>
-                    The interesting part isn't just the network analysis—it's how the AI agents use conversation context to generate content that feels authentic because it's based on real developer discussions, not marketing assumptions.
+                    The interesting part is how the AI agents use conversation context to generate content that feels authentic because it's based on real developer discussions, not marketing assumptions.
                 </p>
 
                 <h3>What makes this different</h3>
@@ -506,7 +878,7 @@ def generate_content(network_insights):
             </section>
 
             <section class="section">
-                <h2>Why this matters for Cursor</h2>
+                <h2>Why this matters for Growth and Sales</h2>
 
                 <p>
                     For a company building AI-assisted development tools, this approach offers several strategic advantages that traditional marketing can't match:
@@ -528,12 +900,7 @@ def generate_content(network_insights):
                 When developers discuss "context switching" as a productivity killer, or get excited about "AI pair programming" as a workflow revolution, that's genuine market intelligence—not survey responses or focus group feedback.
                 </p>
 
-                <h3>The implementation advantage</h3>
-
-                <p>
-                    This isn't theoretical. The system generates real outputs: personalized email sequences that reference specific developer pain points, blog posts that address trending community discussions, and network analysis that reveals competitive positioning opportunities.
-                </p>
-
+                <h3>The gist of it</h3>
                 <p>
                     For Cursor, this means marketing that speaks the language of their actual users, Sales content that addresses real developer challenges, and growth strategies based on how conversations actually flow through developer communities.
                 </p>
