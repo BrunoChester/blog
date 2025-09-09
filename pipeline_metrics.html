@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last-Touch Attribution: How Hyper-Growth Startups Track What Actually Drives Revenue</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .header .meta {
+            font-size: 14px;
+            color: #999;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Content */
+        .content {
+            margin-bottom: 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 40px 0 15px 0;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            background: #fafafa;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Dashboard embed */
+        .viz-container {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            margin: 40px 0;
+            padding: 0;
+        }
+
+        .viz-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .viz-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .viz-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .dashboard-frame {
+            width: 100%;
+            height: 800px;
+            border: none;
+            display: block;
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: #1a1a1a;
+            color: #fafafa;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid #333;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: #888;
+        }
+
+        /* Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .process-item {
+            background: #fafafa;
+            padding: 30px;
+            position: relative;
+        }
+
+        .process-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .process-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .process-desc {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Lists */
+        .feature-list {
+            margin: 30px 0;
+        }
+
+        .feature-list li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        /* Table of Contents style box */
+        .toc {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .toc-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Highlighted text */
+        .highlight {
+            background: #ffffcc;
+            padding: 2px 4px;
+        }
+
+        em {
+            font-style: italic;
+            color: #1a1a1a;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .section h2 {
+                font-size: 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Last-Touch Attribution: How Hyper-Growth Startups Track What Actually Drives Revenue</h1>
+            <div class="subtitle">
+                Most companies measure pipeline by volume. The best ones measure by source attribution—and that makes all the difference in resource allocation.
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="section">
+                <p class="intro-text">
+                    Most SaaS companies track their sales pipeline like this: "We generated $2.8M in pipeline this quarter." That's table stakes. What separates hyper-growth startups from the rest is asking the next question: <strong>where did that pipeline actually come from?</strong>
+                </p>
+                
+                <p class="intro-text">
+                    During my time at Vercel, we built a last-touch attribution model that changed how we allocated marketing spend, structured our sales team, and made strategic decisions. The difference wasn't just operational—it was competitive.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The problem with pipeline volume metrics</h2>
+                
+                <p>
+                    Traditional pipeline reporting tells you what happened, not why it happened. You see the numbers:
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">$2.8M</div>
+                        <div class="stat-label">Pipeline Generated</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">142</div>
+                        <div class="stat-label">Total Opportunities</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">127%</div>
+                        <div class="stat-label">Revenue Attainment</div>
+                    </div>
+                </div>
+                
+                <p>
+                    But you don't see the story behind the numbers. Which GTM motions are actually working? Where should you double down your investment? Which reps should focus on which activities?
+                </p>
+                
+                <p>
+                    Without source attribution, you're optimizing blind.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>How last-touch attribution works</h2>
+                
+                <p>
+                    Last-touch attribution tracks the final interaction that led to opportunity creation. It follows a simple hierarchy:
+                </p>
+                
+                <div class="toc">
+                    <div class="toc-title">Attribution Hierarchy (60-day window)</div>
+                    <ul class="feature-list">
+                        <li><strong>Partner:</strong> Referrals from integration partners or resellers</li>
+                        <li><strong>Customer Success:</strong> Expansion opportunities identified by CS team</li>
+                        <li><strong>Sales Outbound:</strong> Direct outreach activities (emails, calls, LinkedIn)</li>
+                        <li><strong>Marketing Touch:</strong> Events, content downloads, webinars, ads</li>
+                        <li><strong>Product:</strong> Trial sign-ups, in-product conversion flows</li>
+                    </ul>
+                </div>
+                
+                <p>
+                    The key insight: <strong>not all pipeline is created equal.</strong> A $50K deal from a warm inbound lead has different implications than the same deal from cold outbound. The source tells you what to scale.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The real data: pipeline source breakdown</h2>
+                
+                <p>
+                    Here's what a mature attribution model looks like in practice. This dashboard shows Q4 performance across different pipeline sources:
+                </p>
+                
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">Interactive Pipeline Source Attribution Dashboard</div>
+                        <div class="viz-subtitle">Full breakdown by source and rep performance</div>
+                    </div>
+                    <iframe class="dashboard-frame" srcdoc='<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Space Mono", monospace; background: #fafafa; padding: 20px; color: #1a1a1a; }
+        .container { max-width: 100%; background: white; border: 1px solid #e0e0e0; }
+        .header { background: #1a1a1a; color: #fafafa; padding: 30px; text-align: center; }
+        .header h1 { font-size: 24px; margin-bottom: 10px; font-weight: 700; letter-spacing: -0.01em; }
+        .header p { font-size: 14px; color: #ccc; }
+        .pipeline-section { padding: 40px; background: #fafafa; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { color: #1a1a1a; font-size: 20px; margin-bottom: 10px; font-weight: 700; }
+        .source-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: #e0e0e0; border: 1px solid #e0e0e0; margin-bottom: 40px; }
+        .source-card { background: #fafafa; padding: 25px; position: relative; }
+        .source-header { margin-bottom: 20px; }
+        .source-header h4 { font-size: 16px; color: #1a1a1a; margin-bottom: 8px; font-weight: 700; }
+        .source-desc { color: #666; font-size: 12px; line-height: 1.4; }
+        .metric { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .metric:last-child { border-bottom: none; }
+        .metric-value { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+        .metric-label { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .positive { color: #1a1a1a; }
+        .warning { color: #666; }
+        .table-section { margin: 0 40px 20px 40px; }
+        .table-header { background: #f5f5f5; border: 1px solid #e0e0e0; padding: 20px; }
+        .table-header h3 { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+        table { width: 100%; border-collapse: collapse; font-size: 12px; background: white; border: 1px solid #e0e0e0; }
+        th { background: #f5f5f5; padding: 12px 8px; text-align: left; border-bottom: 1px solid #e0e0e0; font-weight: 700; color: #1a1a1a; }
+        td { padding: 10px 8px; border-bottom: 1px solid #f0f0f0; }
+        tr:nth-child(even) { background-color: #fafafa; }
+        tr:hover { background-color: #f5f5f5; }
+        .total-row { background: #f5f5f5 !important; border-top: 2px solid #e0e0e0; font-weight: 700; }
+        .download-section { margin: 20px 40px 40px 40px; text-align: center; }
+        .download-btn { background: #1a1a1a; color: #fafafa; border: 1px solid #333; padding: 12px 24px; font-family: "Space Mono", monospace; font-size: 12px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.2s; }
+        .download-btn:hover { background: #333; }
+        .insights { padding: 40px; background: #f5f5f5; border-top: 1px solid #e0e0e0; }
+        .insights h3 { color: #1a1a1a; text-align: center; margin-bottom: 30px; font-size: 18px; font-weight: 700; }
+        .insights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; background: #e0e0e0; border: 1px solid #e0e0e0; }
+        .insight-card { background: #fafafa; padding: 20px; }
+        .insight-number { font-size: 12px; color: #666; margin-bottom: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .insight-card h4 { color: #1a1a1a; margin-bottom: 10px; font-size: 14px; font-weight: 700; }
+        .insight-card p { font-size: 12px; color: #333; line-height: 1.5; margin-bottom: 10px; }
+        .insight-stat { color: #1a1a1a; font-weight: 700; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>GTM Pipeline Source Attribution</h1>
+            <p>Q4 2024 • Last-Touch Attribution Model</p>
+        </div>
+        
+        <div class="pipeline-section">
+            <div class="section-header">
+                <h2>Q4 2024 Pipeline Performance</h2>
+            </div>
+            
+            <!-- Overall Target vs Attainment -->
+            <div style="background: #f5f5f5; border: 1px solid #e0e0e0; padding: 30px; margin-bottom: 40px;">
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <h3 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">[ quarter_target_vs_attainment ]</h3>
+                    <div style="color: #666; font-size: 12px;">Pipeline target: $2.2M • Actual: $2.8M • Attainment: 127%</div>
+                </div>
+                
+                <!-- Progress bar visualization -->
+                <div style="position: relative; margin-bottom: 20px;">
+                    <div style="background: #e0e0e0; height: 20px; border: 1px solid #ccc; position: relative;">
+                        <div style="background: #1a1a1a; height: 100%; width: 100%; position: relative;">
+                            <div style="background: #666; height: 100%; width: 78.5%; position: absolute; left: 0;"></div>
+                        </div>
+                        <!-- Target line -->
+                        <div style="position: absolute; left: 78.5%; top: -5px; bottom: -5px; width: 2px; background: #fff; border: 1px solid #333;"></div>
+                        <div style="position: absolute; left: 78.5%; top: -20px; font-size: 10px; color: #666; transform: translateX(-50%);">target</div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 11px; color: #666;">
+                        <span>$0</span>
+                        <span>$2.2M target</span>
+                        <span>$2.8M actual</span>
+                    </div>
+                </div>
+                
+                <!-- Metrics grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: #e0e0e0; border: 1px solid #e0e0e0;">
+                    <div style="background: #fafafa; padding: 15px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">$2.8M</div>
+                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">generated</div>
+                    </div>
+                    <div style="background: #fafafa; padding: 15px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">127%</div>
+                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">attainment</div>
+                    </div>
+                    <div style="background: #fafafa; padding: 15px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">142</div>
+                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">opportunities</div>
+                    </div>
+                    <div style="background: #fafafa; padding: 15px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">$47K</div>
+                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">avg_deal_size</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-header">
+                <h2>Pipeline Source Performance</h2>
+            </div>
+            
+            <div class="source-grid">
+                <div class="source-card">
+                    <div class="source-header">
+                        <h4>[ inbound ]</h4>
+                        <div class="source-desc">Marketing events, content, web forms</div>
+                    </div>
+                    <div class="metric"><span class="metric-value">$1.12M</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value positive">40%</span><span class="metric-label">of Total</span></div>
+                    <div class="metric"><span class="metric-value positive">118%</span><span class="metric-label">vs Goal</span></div>
+                    <div class="metric"><span class="metric-value">$67K</span><span class="metric-label">Avg Deal Size</span></div>
+                    <div class="metric"><span class="metric-value">52</span><span class="metric-label">Number of Oppt</span></div>
+                    <div class="metric"><span class="metric-value">38</span><span class="metric-label">Avg Cycle Days</span></div>
+                </div>
+                
+                <div class="source-card">
+                    <div class="source-header">
+                        <h4>[ outbound ]</h4>
+                        <div class="source-desc">Sales activities, cold outreach</div>
+                    </div>
+                    <div class="metric"><span class="metric-value">$896K</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">32%</span><span class="metric-label">of Total</span></div>
+                    <div class="metric"><span class="metric-value warning">89%</span><span class="metric-label">vs Goal</span></div>
+                    <div class="metric"><span class="metric-value">$74K</span><span class="metric-label">Avg Deal Size</span></div>
+                    <div class="metric"><span class="metric-value">41</span><span class="metric-label">Number of Oppt</span></div>
+                    <div class="metric"><span class="metric-value">67</span><span class="metric-label">Avg Cycle Days</span></div>
+                </div>
+                
+                <div class="source-card">
+                    <div class="source-header">
+                        <h4>[ product ]</h4>
+                        <div class="source-desc">Trial sign-ups, in-product conversion</div>
+                    </div>
+                    <div class="metric"><span class="metric-value">$504K</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">18%</span><span class="metric-label">of Total</span></div>
+                    <div class="metric"><span class="metric-value positive">134%</span><span class="metric-label">vs Goal</span></div>
+                    <div class="metric"><span class="metric-value">$29K</span><span class="metric-label">Avg Deal Size</span></div>
+                    <div class="metric"><span class="metric-value">34</span><span class="metric-label">Number of Oppt</span></div>
+                    <div class="metric"><span class="metric-value">23</span><span class="metric-label">Avg Cycle Days</span></div>
+                </div>
+                
+                <div class="source-card">
+                    <div class="source-header">
+                        <h4>[ expansion ]</h4>
+                        <div class="source-desc">Existing customer upsells</div>
+                    </div>
+                    <div class="metric"><span class="metric-value">$280K</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">10%</span><span class="metric-label">of Total</span></div>
+                    <div class="metric"><span class="metric-value positive">140%</span><span class="metric-label">vs Goal</span></div>
+                    <div class="metric"><span class="metric-value">$93K</span><span class="metric-label">Avg Deal Size</span></div>
+                    <div class="metric"><span class="metric-value">15</span><span class="metric-label">Number of Oppt</span></div>
+                    <div class="metric"><span class="metric-value">31</span><span class="metric-label">Avg Cycle Days</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="table-section">
+            <div class="table-header">
+                <h3>Rep Performance by Pipeline Source</h3>
+            </div>
+            <table>
+                <tr><th>rep_name</th><th>role</th><th>region</th><th>inbound</th><th>outbound</th><th>product</th><th>expansion</th><th>total</th><th>top_source</th></tr>
+                <tr><td><strong>sarah_chen</strong></td><td>enterprise_ae</td><td>us_east</td><td class="positive">$287K</td><td>$195K</td><td>$78K</td><td>$27K</td><td><strong>$587K</strong></td><td class="positive">inbound_49pct</td></tr>
+                <tr><td><strong>marcus_johnson</strong></td><td>enterprise_ae</td><td>us_west</td><td>$156K</td><td class="positive">$245K</td><td>$89K</td><td>$31K</td><td><strong>$521K</strong></td><td class="positive">outbound_47pct</td></tr>
+                <tr><td><strong>alex_rivera</strong></td><td>midmarket_ae</td><td>us_east</td><td class="positive">$187K</td><td>$89K</td><td>$24K</td><td>$12K</td><td><strong>$312K</strong></td><td class="positive">inbound_60pct</td></tr>
+                <tr><td><strong>emma_thompson</strong></td><td>midmarket_ae</td><td>us_west</td><td>$134K</td><td>$67K</td><td class="positive">$34K</td><td>$12K</td><td><strong>$247K</strong></td><td class="positive">inbound_54pct</td></tr>
+                <tr><td><strong>david_kim</strong></td><td>smb_ae</td><td>us_west</td><td>$89K</td><td>$23K</td><td class="positive">$78K</td><td>$0</td><td><strong>$190K</strong></td><td class="positive">product_41pct</td></tr>
+                <tr><td><strong>jordan_patel</strong></td><td>sdr</td><td>us_east</td><td>$145K</td><td class="positive">$234K</td><td>$67K</td><td>$0</td><td><strong>$446K</strong></td><td class="positive">outbound_52pct</td></tr>
+                <tr><td><strong>taylor_brooks</strong></td><td>sdr</td><td>us_east</td><td class="positive">$123K</td><td>$89K</td><td>$45K</td><td>$0</td><td><strong>$257K</strong></td><td class="positive">inbound_48pct</td></tr>
+                <tr><td><strong>casey_morgan</strong></td><td>sdr</td><td>us_west</td><td>$67K</td><td class="positive">$89K</td><td>$23K</td><td>$0</td><td><strong>$179K</strong></td><td class="positive">outbound_50pct</td></tr>
+                <tr class="total-row"><td><strong>total</strong></td><td>all_roles</td><td>all_regions</td><td><strong>$1,188K</strong></td><td><strong>$1,031K</strong></td><td><strong>$438K</strong></td><td><strong>$82K</strong></td><td><strong>$2,739K</strong></td><td>mixed</td></tr>
+            </table>
+        </div>
+        
+        <div class="download-section">
+            <button class="download-btn" onclick="downloadCSV()">[ download_csv_data ]</button>
+        </div>
+        
+        <div class="insights">
+            <h3>Key Insights from Attribution Data</h3>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-number">[ insight 01 ]</div>
+                    <h4>Inbound Dominance</h4>
+                    <p>Inbound generates 40% of pipeline with highest enterprise conversion rates.</p>
+                    <div class="insight-stat">roi: 118% vs goal</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">[ insight 02 ]</div>
+                    <h4>Outbound Gap</h4>
+                    <p>Outbound at 89% of goal indicates optimization opportunity.</p>
+                    <div class="insight-stat">opportunity: 11% upside</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">[ insight 03 ]</div>
+                    <h4>Product-Led Success</h4>
+                    <p>Product source exceeding goal by 34% shows strong PLG motion.</p>
+                    <div class="insight-stat">growth: 134% vs goal</div>
+                </div>
+                <div class="insight-card">
+                    <div class="insight-number">[ insight 04 ]</div>
+                    <h4>Expansion Efficiency</h4>
+                    <p>Expansion pipeline at 140% demonstrates excellent CS performance.</p>
+                    <div class="insight-stat">highest_roi: 140% vs goal</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function downloadCSV() {
+            const csvData = [
+                ["PIPELINE SOURCE OVERVIEW"],
+                ["source", "pipeline_amount", "percentage_total", "vs_goal", "description"],
+                ["inbound", "1120000", "40%", "118%", "marketing_events_content_webforms"],
+                ["outbound", "896000", "32%", "89%", "sales_activities_cold_outreach"],
+                ["product", "504000", "18%", "134%", "trial_signups_inproduct_conversion"],
+                ["expansion", "280000", "10%", "140%", "existing_customer_upsells"],
+                [""],
+                ["REP PERFORMANCE BY SOURCE"],
+                ["rep_name", "role", "region", "inbound", "outbound", "product", "expansion", "total", "top_source"],
+                ["sarah_chen", "enterprise_ae", "us_east", "287000", "195000", "78000", "27000", "587000", "inbound_49pct"],
+                ["marcus_johnson", "enterprise_ae", "us_west", "156000", "245000", "89000", "31000", "521000", "outbound_47pct"],
+                ["alex_rivera", "midmarket_ae", "us_east", "187000", "89000", "24000", "12000", "312000", "inbound_60pct"],
+                ["emma_thompson", "midmarket_ae", "us_west", "134000", "67000", "34000", "12000", "247000", "inbound_54pct"],
+                ["david_kim", "smb_ae", "us_west", "89000", "23000", "78000", "0", "190000", "product_41pct"],
+                ["jordan_patel", "sdr", "us_east", "145000", "234000", "67000", "0", "446000", "outbound_52pct"],
+                ["taylor_brooks", "sdr", "us_east", "123000", "89000", "45000", "0", "257000", "inbound_48pct"],
+                ["casey_morgan", "sdr", "us_west", "67000", "89000", "23000", "0", "179000", "outbound_50pct"],
+                ["total", "all_roles", "all_regions", "1188000", "1031000", "438000", "82000", "2739000", "mixed"]
+            ];
+            
+            let csvContent = csvData.map(row => row.join(",")).join("\\n");
+            
+            const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", "gtm_pipeline_attribution_q4_2024.csv");
+            link.style.visibility = "hidden";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>'></iframe>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Calculations blueprint</h2>
+                
+                <p>
+                    Understanding the math behind attribution metrics ensures consistent measurement and accurate analysis. Here's how each metric in the dashboard is calculated:
+                </p>
+                
+                <div class="toc">
+                    <div class="toc-title">Pipeline Source Metrics</div>
+                    <ul class="feature-list">
+                        <li><strong>Pipeline Amount:</strong> Sum of all opportunity amounts where last_touch_source = [source_type]</li>
+                        <li><strong>% of Total Pipeline:</strong> (Source Pipeline Amount ÷ Total Pipeline Amount) × 100</li>
+                        <li><strong>% vs Goal:</strong> (Actual Source Pipeline ÷ Source Target) × 100</li>
+                        <li><strong>Avg Deal Size:</strong> Source Pipeline Amount ÷ Number of Opportunities</li>
+                        <li><strong>Number of Oppt:</strong> COUNT(opportunities) WHERE last_touch_source = [source_type]</li>
+                    </ul>
+                </div>
+                
+                <div class="toc">
+                    <div class="toc-title">Quarter Performance Metrics</div>
+                    <ul class="feature-list">
+                        <li><strong>Generated:</strong> SUM(all opportunity amounts) for date range</li>
+                        <li><strong>Attainment:</strong> (Total Generated ÷ Quarter Target) × 100</li>
+                        <li><strong>Opportunities:</strong> COUNT(all opportunities) for date range</li>
+                        <li><strong>Avg Deal Size:</strong> Total Generated ÷ Total Opportunities</li>
+                    </ul>
+                </div>
+                
+                <div class="toc">
+                    <div class="toc-title">Rep Performance Metrics</div>
+                    <ul class="feature-list">
+                        <li><strong>Source Pipeline by Rep:</strong> SUM(opportunity amounts) WHERE owner = [rep] AND last_touch_source = [source]</li>
+                        <li><strong>Total by Rep:</strong> SUM(all source pipeline amounts) for individual rep</li>
+                        <li><strong>Top Source:</strong> MAX(source pipeline amount) with percentage of rep total</li>
+                        <li><strong>Top Source %:</strong> (Highest Source Amount ÷ Rep Total) × 100</li>
+                    </ul>
+                </div>
+                
+                <div class="code-block">
+<span class="comment"># Sample SQL for pipeline source calculation with sales cycle</span>
+SELECT 
+    last_touch_source,
+    SUM(amount) as pipeline_amount,
+    COUNT(*) as opportunity_count,
+    AVG(amount) as avg_deal_size,
+    SUM(amount) / (SELECT SUM(amount) FROM opportunities) * 100 as pct_total,
+    AVG(DATEDIFF(close_date, created_date)) as avg_cycle_days
+FROM opportunities 
+WHERE created_date >= '2024-10-01' 
+    AND created_date <= '2024-12-31'
+    AND stage != 'Closed Lost'
+    AND close_date IS NOT NULL  <span class="comment"># Only include closed deals for cycle calculation</span>
+GROUP BY last_touch_source
+ORDER BY pipeline_amount DESC;
+
+<span class="comment"># Alternative: Include all pipeline with separate cycle calculation</span>
+SELECT 
+    o.last_touch_source,
+    SUM(o.amount) as pipeline_amount,
+    COUNT(o.*) as opportunity_count,
+    AVG(o.amount) as avg_deal_size,
+    AVG(CASE WHEN o.stage = 'Closed Won' 
+        THEN DATEDIFF(o.close_date, o.created_date) 
+        ELSE NULL END) as avg_cycle_days_closed_won
+FROM opportunities o
+WHERE o.created_date >= '2024-10-01' 
+    AND o.created_date <= '2024-12-31'
+    AND o.stage != 'Closed Lost'
+GROUP BY o.last_touch_source;
+                </div>
+                
+                <p>
+                    The attribution window tracks all interactions 60 days before opportunity creation. The hierarchy prioritizes partner referrals, then customer success expansion, sales outbound, marketing touches, and finally product sign-ups.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>What this data actually tells you</h2>
+                
+                <p>
+                    The dashboard reveals four critical insights that volume metrics miss entirely:
+                </p>
+                
+                <h3>1. Inbound is your revenue engine</h3>
+                <p>
+                    At 40% of total pipeline and 118% of goal, inbound marketing isn't just working—it's your most reliable growth lever. Sarah Chen and Alex Rivera, your top performers, generate 49% and 60% of their pipeline from inbound respectively.
+                </p>
+                
+                <p>
+                    <strong>Action:</strong> Double down on content marketing, events, and SEO. Hire more content marketers before you hire more SDRs.
+                </p>
+                
+                <h3>2. Outbound needs surgical optimization</h3>
+                <p>
+                    Outbound at 89% of goal isn't a failure—it's an opportunity. Marcus Johnson shows outbound can work (47% of his pipeline), but the methodology needs refinement.
+                </p>
+                
+                <p>
+                    <strong>Action:</strong> Study Marcus's outbound playbook. Implement account-based prospecting. Better targeting beats higher volume.
+                </p>
+                
+                <h3>3. Product-led growth is underutilized</h3>
+                <p>
+                    Product source at 134% of goal with only 18% of total pipeline suggests massive upside. David Kim has found the PLG motion that works.
+                </p>
+                
+                <p>
+                    <strong>Action:</strong> Invest in in-product conversion flows. Scale David's approach across the SMB segment.
+                </p>
+                
+                <h3>4. Expansion is your hidden goldmine</h3>
+                <p>
+                    Expansion at 140% of goal proves customer success drives revenue growth, not just retention.
+                </p>
+                
+                <p>
+                    <strong>Action:</strong> Hire Customer Success Managers with sales quotas. Structure expansion as a dedicated motion.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The technical implementation</h2>
+                
+                <p>
+                    Building this system requires three components: data collection, attribution logic, and reporting infrastructure.
+                </p>
+                
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">Salesforce Attribution Implementation Flow</div>
+                        <div class="viz-subtitle">How pipeline source attribution works in practice</div>
+                    </div>
+                    <div style="background: #1a1a1a; padding: 40px; min-height: 400px; position: relative; overflow: hidden;">
+                        <svg width="100%" height="400" viewBox="0 0 800 400" style="font-family: 'Space Mono', monospace;">
+                            <!-- Step 1: Opportunity -->
+                            <g transform="translate(50, 50)">
+                                <circle cx="20" cy="20" r="15" fill="white" stroke="#333" stroke-width="2"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">1</text>
+                                <rect x="50" y="5" width="120" height="60" fill="none" stroke="white" stroke-width="1" rx="3"/>
+                                <text x="110" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="700">Opportunity</text>
+                                <text x="60" y="40" fill="#888" font-size="10">Primary Contact =</text>
+                                <text x="60" y="52" fill="#888" font-size="10">True</text>
+                            </g>
+                            
+                            <!-- Step 2: Team -->
+                            <g transform="translate(50, 150)">
+                                <circle cx="20" cy="20" r="15" fill="white" stroke="#333" stroke-width="2"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">2</text>
+                                <rect x="50" y="5" width="120" height="60" fill="none" stroke="#00bcd4" stroke-width="1" rx="3"/>
+                                <text x="110" y="25" text-anchor="middle" fill="#00bcd4" font-size="14" font-weight="700">Team</text>
+                                <text x="60" y="40" fill="#888" font-size="10">Primary Contact is</text>
+                                <text x="60" y="52" fill="#888" font-size="10">member = True</text>
+                            </g>
+                            
+                            <!-- Step 3: Team Members -->
+                            <g transform="translate(50, 250)">
+                                <circle cx="20" cy="20" r="15" fill="white" stroke="#333" stroke-width="2"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">3</text>
+                                <rect x="50" y="5" width="120" height="85" fill="none" stroke="white" stroke-width="1" rx="3"/>
+                                <text x="110" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="700">Team Members</text>
+                                <text x="60" y="40" fill="#888" font-size="9">Primary Contact is</text>
+                                <text x="60" y="50" fill="#888" font-size="9">member = True &amp;</text>
+                                <text x="60" y="60" fill="#888" font-size="9">All other Team</text>
+                                <text x="60" y="70" fill="#888" font-size="9">Members that share a</text>
+                                <text x="60" y="80" fill="#888" font-size="9">Team with Oppt</text>
+                                <text x="60" y="90" fill="#888" font-size="9">primary contact</text>
+                            </g>
+                            
+                            <!-- Step 4: Contacts -->
+                            <g transform="translate(350, 200)">
+                                <circle cx="20" cy="20" r="15" fill="white" stroke="#333" stroke-width="2"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">4</text>
+                                <rect x="50" y="5" width="120" height="60" fill="none" stroke="#e91e63" stroke-width="1" rx="3"/>
+                                <text x="110" y="25" text-anchor="middle" fill="#e91e63" font-size="14" font-weight="700">Contact(s)</text>
+                                <text x="60" y="40" fill="#888" font-size="10">All Contacts that</text>
+                                <text x="60" y="50" fill="#888" font-size="10">share a Team with</text>
+                                <text x="60" y="60" fill="#888" font-size="10">Oppt primary contact</text>
+                            </g>
+                            
+                            <!-- Step 5: Campaign Members -->
+                            <g transform="translate(600, 50)">
+                                <circle cx="20" cy="20" r="15" fill="white" stroke="#333" stroke-width="2"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">5</text>
+                                <rect x="50" y="5" width="120" height="60" fill="none" stroke="#9c27b0" stroke-width="1" rx="3"/>
+                                <text x="110" y="25" text-anchor="middle" fill="#9c27b0" font-size="14" font-weight="700">Campaign Members</text>
+                                <text x="60" y="40" fill="#888" font-size="10">Response = 1 &amp;</text>
+                                <text x="60" y="52" fill="#888" font-size="10">Contacts are from step 3</text>
+                            </g>
+                            
+                            <!-- Step 6: Campaigns -->
+                            <g transform="translate(600, 250)">
+                                <circle cx="20" cy="20" r="15" fill="white" stroke="#333" stroke-width="2"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">6</text>
+                                <rect x="50" y="5" width="120" height="75" fill="none" stroke="#4caf50" stroke-width="1" rx="3"/>
+                                <text x="110" y="25" text-anchor="middle" fill="#4caf50" font-size="14" font-weight="700">Campaign(s)</text>
+                                <text x="60" y="40" fill="#888" font-size="10">Owner = Marketing &amp;</text>
+                                <text x="60" y="50" fill="#888" font-size="10">Campaign type exclusions</text>
+                                <text x="60" y="60" fill="#888" font-size="10">are applied</text>
+                            </g>
+                            
+                            <!-- Connecting arrows -->
+                            <!-- 1 to 2 -->
+                            <line x1="110" y1="120" x2="110" y2="145" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            
+                            <!-- 2 to 3 -->
+                            <line x1="110" y1="220" x2="110" y2="245" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            
+                            <!-- 3 to 4 -->
+                            <line x1="170" y1="295" x2="345" y2="240" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            
+                            <!-- 4 to 5 -->
+                            <line x1="470" y1="220" x2="595" y2="90" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            
+                            <!-- 5 to 6 -->
+                            <line x1="660" y1="120" x2="660" y2="245" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            
+                            <!-- Attribution flow label -->
+                            <text x="400" y="30" text-anchor="middle" fill="#666" font-size="12" font-style="italic">Attribution Flow: Opportunity → Team → Contacts → Campaign Source</text>
+                        </svg>
+                    </div>
+                </div>
+                
+                <p>
+                    The key is consistent data collection across all touchpoints: CRM activities, marketing automation, product analytics, and customer success interactions. Without clean data, attribution becomes guesswork.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Why this matters for resource allocation</h2>
+                
+                <p>
+                    Most startups allocate resources based on intuition or industry benchmarks. Attribution data lets you allocate based on actual performance.
+                </p>
+                
+                <p>
+                    Instead of hiring SDRs because "everyone does outbound," you see that your best rep generates 60% of pipeline from inbound. Instead of cutting marketing spend during budget discussions, you see it drives 40% of total pipeline at 118% efficiency.
+                </p>
+                
+                <p class="highlight">
+                    The difference between good companies and great companies isn't the tactics they use—it's how precisely they can measure what works and double down on it.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Implementation framework</h2>
+                
+                <p>
+                    If you're building this for your team, start with these steps:
+                </p>
+                
+                <div class="process-grid">
+                    <div class="process-item">
+                        <div class="process-number">[ week 1-2 ]</div>
+                        <div class="process-title">Data Infrastructure</div>
+                        <div class="process-desc">
+                            Audit all touchpoint data sources (CRM, marketing automation, product analytics). Implement consistent UTM tracking and lead source capture. Build attribution logic following the hierarchy model.
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">[ week 3-4 ]</div>
+                        <div class="process-title">Dashboard Creation</div>
+                        <div class="process-desc">
+                            Create pipeline source breakdown views. Build rep-level performance dashboards. Set up automated reporting for leadership team.
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">[ week 5-8 ]</div>
+                        <div class="process-title">Optimization</div>
+                        <div class="process-desc">
+                            Analyze source performance trends. Test resource reallocation based on attribution data. Implement feedback loops for continuous improvement.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="toc">
+                    <div class="toc-title">Implementation takeaways</div>
+                    <p>
+                        I've built this exact system for hyper-growth startups. The full implementation includes CRM integration, automated dashboard generation, and rep-level coaching frameworks.
+                    </p>
+                    <p>
+                        When you know that 40% of your pipeline comes from inbound marketing but only 18% comes from product-led growth, you make different hiring decisions. When you see that your best enterprise rep generates 49% of their pipeline from inbound while another excels at outbound, you coach them differently.
+                    </p>
+                </div>
+                
+                <p>
+                    <strong>Thank you for reading until here -- Let's scale this together?</strong>
+                </p>
+                <p>
+                    Feel free to email me for the full code implementation at leardinebruno@gmail.com
+                </p>
+                <p>
+                    Bruno Chester Leardine
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
