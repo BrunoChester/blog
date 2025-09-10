@@ -570,66 +570,7 @@
                 <p>The system operates on three layers: <strong>data extraction</strong> pulls live business rules from your GTM platform API, <strong>AI processing</strong> converts structured data into conversational context, and <strong>communication integration</strong> delivers answers where teams already work.</p>
             </section>
 
-            <section class="section">
-                <h2>Performance metrics</h2>
-
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">73%</div>
-                        <div class="stat-label">Time Reduction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">4.2</div>
-                        <div class="stat-label">Hours/Week Saved</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">0</div>
-                        <div class="stat-label">Platform Logins</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">2.3s</div>
-                        <div class="stat-label">Avg Response Time</div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2>Technical implementation</h2>
-
-                <div class="code-block">
-<span class="comment"># API extraction and JSON export</span>
-def extract_business_rules(platform_api):
-    rules = platform_api.get_all_configurations()
-    return {
-        "scoring_rules": rules.scoring,
-        "routing_logic": rules.routing,
-        "field_mappings": rules.mappings,
-        "automation_triggers": rules.triggers
-    }
-
-<span class="comment"># AI context preparation</span>
-def prepare_ai_context(business_rules_json):
-    context = f"""
-    You are a GTM operations assistant with access to:
-    - Lead scoring configurations: {business_rules_json['scoring_rules']}
-    - Territory routing logic: {business_rules_json['routing_logic']}
-    - Integration mappings: {business_rules_json['field_mappings']}
-    
-    Respond conversationally to questions about these systems.
-    """
-    return context
-
-<span class="comment"># Teams/Slack integration</span>
-@teams_handler("/gtm-question")
-def handle_question(user_question):
-    ai_response = llm.generate(
-        context=business_rules_context,
-        query=user_question
-    )
-    return format_for_teams(ai_response)
-                </div>
-
-                <h3>What makes this different from traditional chatbots</h3>
+                <h2>What makes this different from traditional chatbots</h2>
 
                 <p>
                     Most GTM information rely on sparse training and/or static knowledge bases. This system uses our live business rules as context, ensuring responses are accurate to our current platform configuration.
