@@ -279,12 +279,12 @@
 <body>
     <div class="container">
         <header class="header">
-            <h1>Building a Product Qualified Lead (PQL) System: From Manual Push to Automated Platform</h1>
+            <h1> Early days of Copilot GTM: Building a Product Qualified Lead (PQL) System.</h1>
             <div class="subtitle">
-                Back in March 2023, I was deep into building what would become a comprehensive Product Qualified Lead system. What started as a simple ML model to identify upsell opportunities evolved into something much more ambitious.
+                Back in  2022/2023, I was deep into building what would become a comprehensive Product Qualified Lead system for GitHub Copilot. We started with a simple ML model to identify upsell opportunities and built from there.
             </div>
             <div class="meta">
-                <span>March 2023</span>
+                <span>2022/2023</span>
                 <span>Enterprise & Core Metrics</span>
                 <span>Bruno Chester</span>
             </div>
@@ -293,16 +293,17 @@
         <main class="content">
             <section class="section">
                 <p class="intro-text">
-                    The shift started when we asked the question: <strong>how do we systematically identify users ready to upgrade?</strong>
+                    when Copilot came out it was new to the world, and our key question was: <strong>how do we systematically identify users ready to upgrade?</strong>
                 </p>
                 
                 <p class="intro-text">
-                    What began as a single machine learning model targeting Advanced Security upsells became a platform for propensity modeling across the entire product portfolio. The key insight: product behavior data is the strongest signal for upgrade readiness.
+                    What we learned was that Advanced Security upsells became a platform for propensity modeling across the entire product portfolio. The key insight: product behavior data is the strongest signal for upgrade readiness.
                 </p>
+                <p> It turned out that growing teams didn't have time to ship and scan their code manually, they had to automate the process. Automation -> Copilot</p>
             </section>
 
             <section class="section">
-                <h2>What Actually is a PQL?</h2>
+                <h2>Definiton of PQL</h2>
                 
                 <p>
                     A Product Qualified Lead is a user (or group of users) who have demonstrated sustained and meaningful use of your products, and have signaled readiness to upgrade to the next best product experience.
@@ -329,7 +330,7 @@
                 
                 <h3>Starting Simple: Advanced Security Model</h3>
                 <p>
-                    The first model I built targeted existing Enterprise Cloud customers for Advanced Security upsells. The approach was straightforward but effective:
+                    The first model we built targeted existing Enterprise Cloud customers for Advanced Security upsells. The approach was straightforward but effective:
                 </p>
                 
                 <div class="stats-grid">
@@ -392,9 +393,9 @@ GROUP BY org_id
             <section class="section">
                 <h2>Scaling the Architecture</h2>
                 
-                <h3>From Push to Pull: Building the Lead Store</h3>
+                <h3>From Push to Pull: Building the Lead Store in SFDC</h3>
                 <p>
-                    The manual upload process became the obvious bottleneck. I designed a centralized lead store that downstream systems could pull from automatically.
+                    The manual upload process became the obvious bottleneck. We designed a centralized lead store that downstream systems could pull from automatically.
                 </p>
 
                 <div class="viz-container">
@@ -419,24 +420,25 @@ PHASE 1: Manual Push           PHASE 2: Lead Store              PHASE 3: Platfor
                 </div>
 
                 <p>
-                    This architectural shift from push to pull mode enabled automated distribution to Salesforce, email marketing platforms, and the product itself, with real-time availability and consistent data across all consuming systems.
+                    This architectural shift from push to pull mode enabled automated distribution to Salesforce, email marketing platforms, and the product itself, with near real-time availability and consistent data across all consuming systems.
                 </p>
 
                 <h3>Adding the Orchestration Layer</h3>
                 <p>
-                    One challenge with multiple systems consuming PQL data is coordination. You don't want sales calling a prospect the same day they receive a marketing email about the same product.
+                    One challenge with multiple systems consuming PQL data is coordination. We didn't want sales calling a prospect the same day they receive a marketing email about the same product.
                 </p>
                 
                 <p>
-                    The orchestration layer tracks lead state across all systems where PQLs are consumed, ensuring coordinated outreach rather than independent actions by each system.
+                    The orchestration layer tracked lead state across the different systems where PQLs were consumed, ensuring coordinated outreach rather than independent actions by each system.
                 </p>
+<p> We also had a tiered approach to leads where Tier 1 and 2 were reserved to AEs and overall Sales team with tier 3 being allocated to Marketing and PQLs. The process coordination was defitely a highlight and probably more important than the model itself.</p>
             </section>
 
             <section class="section">
-                <h2>Model Factory: Scaling Beyond Manual Development</h2>
+                <h2>Model Factory: Scaling Beyond Manual Development <i>(this was apart of the roadmap but we didn't implement it)</i></h2>
                 
                 <p>
-                    Building individual models for each product doesn't scale when you have dozens of upgrade paths. I designed a "model factory" where users specify model requirements via standardized config files, and an auto-ML pipeline handles training and deployment.
+                    Building individual models for each product doesn't scale when you have dozens of upgrade paths. We designed a "model factory" where users specify model requirements via standardized config files, and an auto-ML pipeline handles training and deployment.
                 </p>
 
                 <div class="toc">
@@ -451,7 +453,7 @@ PHASE 1: Manual Push           PHASE 2: Lead Store              PHASE 3: Platfor
                 </div>
 
                 <p>
-                    This approach trades some model performance for massive scale in model creation. Instead of hand-tuning each model, you can rapidly deploy "good enough" models for minor products and edge cases.
+                    This approach would trade some model performance for massive scale in model creation. Instead of hand-tuning each model, we would rapidly deploy "good enough" models for minor products and edge cases.
                 </p>
             </section>
 
@@ -489,7 +491,7 @@ PHASE 1: Manual Push           PHASE 2: Lead Store              PHASE 3: Platfor
                 <h2>Multi-Signal Collaboration</h2>
                 
                 <p>
-                    The most predictive PQL models combine signals from across the organization. Each team captures different aspects of customer intent, and blending these signals creates a more complete picture than any single data source.
+                    The most predictive PQL model we landed on combined signals from across the organization. Each team captures different aspects of customer intent, and blending these signals created a more complete picture than any single data source.
                 </p>
 
                 <div class="viz-container">
@@ -568,27 +570,6 @@ PRODUCT SIGNALS           MARKETING SIGNALS         SALES SIGNALS           CS S
                     The next evolution was building a feature store that combines product usage patterns, sales interaction history, marketing engagement scores, and customer success touchpoints. This multi-signal approach significantly improved model performance.
                 </p>
             </section>
-
-            <section class="section">
-                <h2>Current Status and Lessons Learned</h2>
-                
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">✅</div>
-                        <div class="stat-label">Advanced Security Model</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">✅</div>
-                        <div class="stat-label">Enterprise Cloud Model</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">✅</div>
-                        <div class="stat-label">Lead Store Architecture</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">❌</div>
-                        <div class="stat-label">Product Integration</div>
-                    </div>
                 </div>
 
                 <div class="toc">
@@ -610,7 +591,7 @@ PRODUCT SIGNALS           MARKETING SIGNALS         SALES SIGNALS           CS S
                         The system ultimately became a platform for propensity modeling across the entire product portfolio. Starting with one specific use case and iterating toward a general solution worked better than trying to build the perfect system upfront.
                     </p>
                     <p>
-                        The biggest remaining challenge was integrating the Azure-based data warehouse with the product's application stack - a classic "two different worlds" problem that every data team eventually faces.
+                        The biggest remaining challenge was integrating the Azure-based data warehouse with the product's application stack - We chose SFDC as the main place for Product Data and it became expensive overtime. Nowadays tools like HighTouch or Inflection make it much more feasible.
                     </p>
                 </div>
                 
