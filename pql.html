@@ -540,48 +540,7 @@ PRODUCT SIGNALS           MARKETING SIGNALS         SALES SIGNALS           CS S
                 </p>
             </section>
 
-            <section class="section">
-                <h2>The Technical Implementation</h2>
-                
-                <p>
-                    Initially, PQL models only used product engagement data. But the most predictive signals often come from sales interactions, support tickets, and marketing engagement.
-                </p>
-
-                <div class="viz-container">
-                    <div class="viz-header">
-                        <div class="viz-title">Feature Store Integration</div>
-                        <div class="viz-subtitle">Multi-signal approach for better prediction</div>
-                    </div>
-                    <div class="simple-diagram">
-                        <pre>
-┌─────────────────┐
-│ Product Analytics│ ──┐
-│ • Usage patterns │   │
-│ • Feature adoption│   │
-└─────────────────┘   │    ┌─────────────────┐    ┌─────────────────┐
-                      │    │                 │    │   ML Models     │
-┌─────────────────┐   ├──→ │ Feature Store   │ ──→│                 │
-│ Sales CRM       │   │    │                 │    │ • Security      │
-│ • Touch history │   │    │ Unified Features│    │ • Enterprise    │
-│ • Demo requests │   │    │                 │    │ • Copilot       │
-└─────────────────┘   │    └─────────────────┘    │ • Actions       │
-                      │                           └─────────────────┘
-┌─────────────────┐   │
-│ Marketing       │   │
-│ • Email engage  │ ──┘
-│ • Content views │
-└─────────────────┘
-                        </pre>
-                    </div>
-                </div>
-
-                <p>
-                    The next evolution was building a feature store that combines product usage patterns, sales interaction history, marketing engagement scores, and customer success touchpoints. This multi-signal approach significantly improved model performance.
-                </p>
-            </section>
-                </div>
-
-                <div class="toc">
+            <div class="toc">
                     <div class="toc-title">Key Takeaways</div>
                     <ul class="feature-list">
                         <li><strong>Start manual:</strong> Validate the concept before building infrastructure</li>
@@ -611,6 +570,7 @@ PRODUCT SIGNALS           MARKETING SIGNALS         SALES SIGNALS           CS S
                     Bruno Chester Leardine
                 </p>
             </section>
+                </div>
         </main>
     </div>
 </body>
