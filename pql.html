@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building a Product Qualified Lead (PQL) System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Mono', monospace;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header {
+            padding: 60px 0 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .header .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.4;
+        }
+
+        .header .meta {
+            font-size: 14px;
+            color: #999;
+            display: flex;
+            gap: 20px;
+        }
+
+        .content {
+            margin-bottom: 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 40px 0 15px 0;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .intro-text {
+            font-size: 18px;
+            color: #1a1a1a;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .stat-item {
+            background: #fafafa;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .viz-container {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            margin: 40px 0;
+            padding: 0;
+        }
+
+        .viz-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .viz-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .viz-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #fafafa;
+            padding: 20px;
+            margin: 30px 0;
+            border: 1px solid #333;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .code-block .comment {
+            color: #888;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1px;
+            background: #e0e0e0;
+            margin: 40px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .process-item {
+            background: #fafafa;
+            padding: 30px;
+            position: relative;
+        }
+
+        .process-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .process-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .process-desc {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            margin: 30px 0;
+        }
+
+        .feature-list li {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #666;
+        }
+
+        .toc {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .toc-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .highlight {
+            background: #ffffcc;
+            padding: 2px 4px;
+        }
+
+        em {
+            font-style: italic;
+            color: #1a1a1a;
+        }
+
+        strong {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .simple-diagram {
+            background: #1a1a1a;
+            color: #fafafa;
+            padding: 40px;
+            margin: 30px 0;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .section h2 {
+                font-size: 24px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Building a Product Qualified Lead (PQL) System: From Manual Push to Automated Platform</h1>
+            <div class="subtitle">
+                Back in March 2023, I was deep into building what would become a comprehensive Product Qualified Lead system. What started as a simple ML model to identify upsell opportunities evolved into something much more ambitious.
+            </div>
+            <div class="meta">
+                <span>March 2023</span>
+                <span>Enterprise & Core Metrics</span>
+                <span>Bruno Chester</span>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="section">
+                <p class="intro-text">
+                    The shift started when we asked the question: <strong>how do we systematically identify users ready to upgrade?</strong>
+                </p>
+                
+                <p class="intro-text">
+                    What began as a single machine learning model targeting Advanced Security upsells became a platform for propensity modeling across the entire product portfolio. The key insight: product behavior data is the strongest signal for upgrade readiness.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>What Actually is a PQL?</h2>
+                
+                <p>
+                    A Product Qualified Lead is a user (or group of users) who have demonstrated sustained and meaningful use of your products, and have signaled readiness to upgrade to the next best product experience.
+                </p>
+                
+                <p>
+                    Unlike traditional marketing qualified leads that rely on form fills and demographic data, PQLs are based on actual product behavior. The core insight behind product-led growth is that user acquisition, expansion, conversion, and retention should all be driven primarily by the product itself.
+                </p>
+                
+                <div class="toc">
+                    <div class="toc-title">PQL Use Cases</div>
+                    <ul class="feature-list">
+                        <li><strong>Sales:</strong> Focus efforts on highest-propensity leads</li>
+                        <li><strong>Lifecycle Marketing:</strong> Deliver relevant product information</li>
+                        <li><strong>Growth:</strong> Target product trials without UI clutter</li>
+                        <li><strong>Product:</strong> Allocate costly resources (free credits) efficiently</li>
+                        <li><strong>Feed:</strong> Optimize "what's new" space with next best product</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>The Technical Implementation</h2>
+                
+                <h3>Starting Simple: Advanced Security Model</h3>
+                <p>
+                    The first model I built targeted existing Enterprise Cloud customers for Advanced Security upsells. The approach was straightforward but effective:
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">4,767</div>
+                        <div class="stat-label">PQL Leads Generated</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24.4%</div>
+                        <div class="stat-label">Reached Working Status</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">33</div>
+                        <div class="stat-label">Opportunities Created</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">$223.5K</div>
+                        <div class="stat-label">Won Revenue</div>
+                    </div>
+                </div>
+
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">PQL Processing Flow</div>
+                        <div class="viz-subtitle">How product signals become qualified leads</div>
+                    </div>
+                    <div class="simple-diagram">
+                        <pre>
+Data Warehouse ──→ Product Usage Signals ──→ ML Model ──→ Lead Enrichment ──→ Lead Store
+     │                  (90 days)                │             │                    │
+     │                     │                     │             │                    │
+     └── 50+ signals ──────┘                     │             │                    │
+                                                  │             │                    │
+                                            Propensity     Customer Data        Sales & Marketing
+                                              Score       + Contactability         Systems
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="code-block">
+<span class="comment"># PQL Model Pipeline</span>
+SELECT 
+    org_id,
+    <span class="comment">-- Product usage signals over 90 days</span>
+    COUNT(DISTINCT repository_id) as active_repos,
+    SUM(commits_count) as total_commits,
+    COUNT(DISTINCT user_id) as active_users,
+    AVG(security_scans_per_repo) as avg_security_usage,
+    <span class="comment">-- Propensity features</span>
+    days_since_last_security_scan,
+    enterprise_seats_count,
+    plan_tier
+FROM product_usage_360 
+WHERE date_range = LAST_90_DAYS
+    AND plan_type = 'Enterprise Cloud'
+GROUP BY org_id
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Scaling the Architecture</h2>
+                
+                <h3>From Push to Pull: Building the Lead Store</h3>
+                <p>
+                    The manual upload process became the obvious bottleneck. I designed a centralized lead store that downstream systems could pull from automatically.
+                </p>
+
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">System Architecture Evolution</div>
+                        <div class="viz-subtitle">From manual push to automated platform</div>
+                    </div>
+                    <div class="simple-diagram">
+                        <pre>
+PHASE 1: Manual Push           PHASE 2: Lead Store              PHASE 3: Platform
+┌─────────────────┐           ┌─────────────────┐             ┌─────────────────┐
+│  Data Warehouse │           │  Data Warehouse │             │  Feature Store  │
+│        ↓        │           │        ↓        │             │        ↓        │
+│   GHAS Model    │    ====>  │ Multiple Models │    ====>    │  Model Factory  │
+│        ↓        │           │        ↓        │             │        ↓        │
+│ Manual Upload   │           │   Lead Store    │             │   Lead Store    │
+│        ↓        │           │        ↓        │             │        ↓        │
+│   Salesforce    │           │  Pull API/Auto │             │  Orchestration  │
+└─────────────────┘           └─────────────────┘             └─────────────────┘
+                        </pre>
+                    </div>
+                </div>
+
+                <p>
+                    This architectural shift from push to pull mode enabled automated distribution to Salesforce, email marketing platforms, and the product itself, with real-time availability and consistent data across all consuming systems.
+                </p>
+
+                <h3>Adding the Orchestration Layer</h3>
+                <p>
+                    One challenge with multiple systems consuming PQL data is coordination. You don't want sales calling a prospect the same day they receive a marketing email about the same product.
+                </p>
+                
+                <p>
+                    The orchestration layer tracks lead state across all systems where PQLs are consumed, ensuring coordinated outreach rather than independent actions by each system.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Model Factory: Scaling Beyond Manual Development</h2>
+                
+                <p>
+                    Building individual models for each product doesn't scale when you have dozens of upgrade paths. I designed a "model factory" where users specify model requirements via standardized config files, and an auto-ML pipeline handles training and deployment.
+                </p>
+
+                <div class="toc">
+                    <div class="toc-title">Model Factory Components</div>
+                    <ul class="feature-list">
+                        <li><strong>Config-driven:</strong> Standardized YAML files define model parameters</li>
+                        <li><strong>Auto-ML Pipeline:</strong> Automated training and deployment</li>
+                        <li><strong>Feature Store:</strong> Shared feature engineering across models</li>
+                        <li><strong>A/B Testing:</strong> Built-in experimentation framework</li>
+                        <li><strong>Model Monitoring:</strong> Performance tracking and drift detection</li>
+                    </ul>
+                </div>
+
+                <p>
+                    This approach trades some model performance for massive scale in model creation. Instead of hand-tuning each model, you can rapidly deploy "good enough" models for minor products and edge cases.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>When Do You Actually Need a Model?</h2>
+                
+                <p>
+                    Not every use case requires machine learning. The decision comes down to cost and volume:
+                </p>
+
+                <div class="process-grid">
+                    <div class="process-item">
+                        <div class="process-number">[ high-value, low-volume ]</div>
+                        <div class="process-title">Skip the Model</div>
+                        <div class="process-desc">
+                            If you have 50 enterprise customers who might upgrade to your premium security add-on, just call all of them. The cost is negligible and the personal touch adds value.
+                        </div>
+                    </div>
+                    
+                    <div class="process-item">
+                        <div class="process-number">[ high-volume scenarios ]</div>
+                        <div class="process-title">Build the Model</div>
+                        <div class="process-desc">
+                            If you want sales to call thousands of mid-market customers about upgrading, you need a model. The volume far exceeds sales capacity, making opportunity cost significant.
+                        </div>
+                    </div>
+                </div>
+
+                <p class="highlight">
+                    The general rule: if reaching everybody has no incremental cost, skip the model and go for it.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Multi-Signal Collaboration</h2>
+                
+                <p>
+                    The most predictive PQL models combine signals from across the organization. Each team captures different aspects of customer intent, and blending these signals creates a more complete picture than any single data source.
+                </p>
+
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">Signal Sources by Team</div>
+                        <div class="viz-subtitle">How different teams contribute to upgrade prediction</div>
+                    </div>
+                    <div class="simple-diagram">
+                        <pre>
+PRODUCT SIGNALS           MARKETING SIGNALS         SALES SIGNALS           CS SIGNALS
+                         
+• Usage Increase          • Content Interaction     • Phone/Email Touch     • Support Incidents
+• Actions Consumption     • Event Attendance        • New Opportunities     • Usage Monitoring  
+• Team Growth            • Trial Signups           • Closed Deals          • Retention Metrics
+• Feature Adoption       • Direct Contact          • Pipeline Updates      • Health Scores
+
+              ↓                    ↓                    ↓                  ↓
+                             ┌─────────────────────┐
+                             │   UNIFIED PQL       │
+                             │   SCORING MODEL     │
+                             └─────────────────────┘
+                                        │
+                         ┌──────────────┼──────────────┐
+                         ↓              ↓              ↓
+                 Usage-Based      Product-Assisted   Connected Customer
+                 Targeting         Sales              Success
+                         
+               • Segmentation    • Best Contact Time  • Proactive Support
+               • Response Rates  • Revival Campaigns  • Learning Paths
+               • Funnel Impact   • Interest Heatmap   • Retention Campaigns
+                        </pre>
+                    </div>
+                </div>
+
+                <p>
+                    This multi-signal approach was crucial for the Advanced Security model's success. Product usage data showed <em>what</em> customers were doing, while sales interaction history revealed <em>how</em> they responded to outreach, and support data indicated <em>where</em> they might need additional features.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>The Technical Implementation</h2>
+                
+                <p>
+                    Initially, PQL models only used product engagement data. But the most predictive signals often come from sales interactions, support tickets, and marketing engagement.
+                </p>
+
+                <div class="viz-container">
+                    <div class="viz-header">
+                        <div class="viz-title">Feature Store Integration</div>
+                        <div class="viz-subtitle">Multi-signal approach for better prediction</div>
+                    </div>
+                    <div class="simple-diagram">
+                        <pre>
+┌─────────────────┐
+│ Product Analytics│ ──┐
+│ • Usage patterns │   │
+│ • Feature adoption│   │
+└─────────────────┘   │    ┌─────────────────┐    ┌─────────────────┐
+                      │    │                 │    │   ML Models     │
+┌─────────────────┐   ├──→ │ Feature Store   │ ──→│                 │
+│ Sales CRM       │   │    │                 │    │ • Security      │
+│ • Touch history │   │    │ Unified Features│    │ • Enterprise    │
+│ • Demo requests │   │    │                 │    │ • Copilot       │
+└─────────────────┘   │    └─────────────────┘    │ • Actions       │
+                      │                           └─────────────────┘
+┌─────────────────┐   │
+│ Marketing       │   │
+│ • Email engage  │ ──┘
+│ • Content views │
+└─────────────────┘
+                        </pre>
+                    </div>
+                </div>
+
+                <p>
+                    The next evolution was building a feature store that combines product usage patterns, sales interaction history, marketing engagement scores, and customer success touchpoints. This multi-signal approach significantly improved model performance.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Current Status and Lessons Learned</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">✅</div>
+                        <div class="stat-label">Advanced Security Model</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">✅</div>
+                        <div class="stat-label">Enterprise Cloud Model</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">✅</div>
+                        <div class="stat-label">Lead Store Architecture</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">❌</div>
+                        <div class="stat-label">Product Integration</div>
+                    </div>
+                </div>
+
+                <div class="toc">
+                    <div class="toc-title">Key Takeaways</div>
+                    <ul class="feature-list">
+                        <li><strong>Start manual:</strong> Validate the concept before building infrastructure</li>
+                        <li><strong>Product integration is hard:</strong> Getting scores into the product is more complex than sales/marketing integrations</li>
+                        <li><strong>Orchestration matters:</strong> Coordinate outreach across teams to avoid overwhelming customers</li>
+                        <li><strong>Not everything needs ML:</strong> Simple rules work fine for many scenarios</li>
+                        <li><strong>Platform thinking:</strong> Build for multiple use cases from the start</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="toc">
+                    <div class="toc-title">Implementation Notes</div>
+                    <p>
+                        The system ultimately became a platform for propensity modeling across the entire product portfolio. Starting with one specific use case and iterating toward a general solution worked better than trying to build the perfect system upfront.
+                    </p>
+                    <p>
+                        The biggest remaining challenge was integrating the Azure-based data warehouse with the product's application stack - a classic "two different worlds" problem that every data team eventually faces.
+                    </p>
+                </div>
+                
+                <p>
+                    <strong>Questions or want to implement something similar?</strong>
+                </p>
+                <p>
+                    Feel free to reach out - I've built this exact system for multiple teams and can share the detailed technical implementation.
+                </p>
+                <p>
+                    Bruno Chester Leardine
+                </p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
