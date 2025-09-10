@@ -283,11 +283,6 @@
             <div class="subtitle">
                 Back in  2022/2023, I was deep into building what would become a comprehensive Product Qualified Lead system for GitHub Copilot. We started with a simple ML model to identify upsell opportunities and built from there.
             </div>
-            <div class="meta">
-                <span>2022/2023</span>
-                <span>Enterprise & Core Metrics</span>
-                <span>Bruno Chester</span>
-            </div>
         </header>
 
         <main class="content">
@@ -297,9 +292,10 @@
                 </p>
                 
                 <p class="intro-text">
-                    To learn it we first focused on Advanced Security upsells became a platform for propensity modeling across the entire product portfolio. The key insight: product behavior data is the strongest signal for upgrade readiness.
+                    To answer that question we first focused on Advanced Security upsells which later became a platform for propensity modeling across the entire product portfolio.<br>The key insight: product behavior data is the strongest signal for upgrade readiness.<br>
+                    Knowing which product behavior to use is the challening part and I expand more on the topic at the bottom of this article when I cover "Multi-Signal Collaboration".
                 </p>
-                <p> It turned out that growing teams didn't have time to ship and scan their code manually, they had to automate the process by adding Dependabot to their flow. The more dependabot the closer they were to accept GHAS.</p>
+                <p> For GHAS it turned out that growing teams didn't have time to ship and scan their code manually, they had to automate the process by adding Dependabot to their flow. The more dependabot, the faster their growth, and the closer they were to accept GHAS.</p>
             
             </section>
 
@@ -315,7 +311,7 @@
                 </p>
                 
                 <div class="toc">
-                    <div class="toc-title">PQL Use Cases</div>
+                    <div class="toc-title"> <i>Some</i> PQL Use Cases</div>
                     <ul class="feature-list">
                         <li><strong>Sales:</strong> Focus efforts on highest-propensity leads</li>
                         <li><strong>Lifecycle Marketing:</strong> Deliver relevant product information</li>
@@ -329,9 +325,9 @@
             <section class="section">
                 <h2>The Technical Implementation</h2>
                 
-                <h3>Starting Simple: Advanced Security Model</h3>
+                <h3>Starting Simple: Single Advanced Security Model</h3>
                 <p>
-                    The first model we built targeted existing Enterprise Cloud customers for Advanced Security upsells. The approach was straightforward but effective:
+                    The first model we built targeted existing Enterprise Cloud customers for Advanced Security upsells. The approach was straightforward but effective. The first 2 months tranlated to:
                 </p>
                 
                 <div class="stats-grid">
@@ -356,7 +352,7 @@
                 <div class="viz-container">
                     <div class="viz-header">
                         <div class="viz-title">PQL Processing Flow</div>
-                        <div class="viz-subtitle">How product signals become qualified leads</div>
+                        <div class="viz-subtitle">How product signals became qualified leads</div>
                     </div>
                     <div class="simple-diagram">
                         <pre>
@@ -396,7 +392,7 @@ GROUP BY org_id
                 
                 <h3>From Push to Pull: Building the Lead Store in SFDC</h3>
                 <p>
-                    The manual upload process became the obvious bottleneck. We designed a centralized lead store that downstream systems could pull from automatically.
+                    The manual upload process became the obvious bottleneck. We designed SFDC as a centralized environment that downstream systems could pull from automatically.
                 </p>
 
                 <div class="viz-container">
@@ -421,29 +417,31 @@ PHASE 1: Manual Push           PHASE 2: Lead Store              PHASE 3: Platfor
                 </div>
 
                 <p>
-                    This architectural shift from push to pull mode enabled automated distribution to Salesforce, email marketing platforms, and the product itself, with near real-time availability and consistent data across all consuming systems.
+                    This architectural shift from push to pull mode enabled automated distribution from Salesforce to email marketing platforms, and the product itself, with near real-time availability and consistent data across all consuming systems.
                 </p>
+                <p> The consistency worked for us since now we could leverage our Marketing Automation tool to nurture leads and only pass them to sales once ready. PQL started to support the Sales motion at this point and it was a huge win for us.</p>
 
                 <h3>Adding the Orchestration Layer</h3>
                 <p>
-                    One challenge with multiple systems consuming PQL data is coordination. We didn't want sales calling a prospect the same day they receive a marketing email about the same product.
+                    Coordinaition then became the major challenge with multiple systems and teams consuming PQL data. We didn't want sales calling a prospect the same day they receive a marketing email about the same featue, or had a Field Eng Demo scheduled.
                 </p>
                 
                 <p>
-                    The orchestration layer tracked lead state across the different systems where PQLs were consumed, ensuring coordinated outreach rather than independent actions by each system.
+                    The orchestration layer, a SFDC Object for Account level data broken down by Lead activity, tracked lead state across the different systems where PQLs were consumed, ensuring coordinated outreach rather than independent actions by each system.
                 </p>
-<p> We also had a tiered approach to leads where Tier 1 and 2 were reserved to AEs and overall Sales team with tier 3 being allocated to Marketing and PQLs. The process coordination was defitely a highlight and probably more important than the model itself.</p>
+                <p> You might think, well orchestration layer did what Unify or Koala do today and you would be right! But remember, thi is 2022 and these tools didn't exist. We had to solve for visibility ourselves.</p>
+<p> At this point, stratigic aligment and processes were our top priority. We had a tiered approach to leads where Tier 1 and 2 were reserved to AEs and overall Sales team with tier 3 being allocated to Marketing and PQLs. During this stage there is no question that Process > Tech/Models</p>
             </section>
 
             <section class="section">
-                <h2>Model Factory: Scaling Beyond Manual Development <i>(this was apart of the roadmap but we didn't implement it)</i></h2>
+                <h2>Model Factory: Scaling Beyond Manual Development</h2>
                 
                 <p>
                     Building individual models for each product doesn't scale when you have dozens of upgrade paths. We designed a "model factory" where users specify model requirements via standardized config files, and an auto-ML pipeline handles training and deployment.
                 </p>
 
                 <div class="toc">
-                    <div class="toc-title">Model Factory Components</div>
+                    <div class="toc-title">Model Factory Components Roadmap</div>
                     <ul class="feature-list">
                         <li><strong>Config-driven:</strong> Standardized YAML files define model parameters</li>
                         <li><strong>Auto-ML Pipeline:</strong> Automated training and deployment</li>
@@ -455,6 +453,13 @@ PHASE 1: Manual Push           PHASE 2: Lead Store              PHASE 3: Platfor
 
                 <p>
                     This approach would trade some model performance for massive scale in model creation. Instead of hand-tuning each model, we would rapidly deploy "good enough" models for minor products and edge cases.
+                </p>
+                <p>Two challenges got in the way:
+                <ul>
+                    <ui>The tech was non existing: We used Eloqua and our Datawearehouse</ui>
+                    <ul><ui> Today I would use tools like Hightouch and Inflection to accomplish the same</ui></ul>
+                    <ui>The business focus changed and Microsoft asked us to focus on joining GitHub Tech Stack to the Global GTM Tech Stack at Microsoft.</ui>
+                </ul>
                 </p>
             </section>
 
@@ -590,9 +595,6 @@ PRODUCT SIGNALS           MARKETING SIGNALS         SALES SIGNALS           CS S
                     <div class="toc-title">Implementation Notes</div>
                     <p>
                         The system ultimately became a platform for propensity modeling across the entire product portfolio. Starting with one specific use case and iterating toward a general solution worked better than trying to build the perfect system upfront.
-                    </p>
-                    <p>
-                        The biggest remaining challenge was integrating the Azure-based data warehouse with the product's application stack - We chose SFDC as the main place for Product Data and it became expensive overtime. Nowadays tools like HighTouch or Inflection make it much more feasible.
                     </p>
                 </div>
                 
