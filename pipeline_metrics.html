@@ -585,37 +585,6 @@
         <div class="download-section">
             <button class="download-btn" onclick="downloadCSV()">[ download_csv_data ]</button>
         </div>
-        
-        <div class="insights">
-            <h3>Key Insights from Attribution Data</h3>
-            <div class="insights-grid">
-                <div class="insight-card">
-                    <div class="insight-number">[ insight 01 ]</div>
-                    <h4>Inbound Dominance</h4>
-                    <p>Inbound generates 40% of pipeline with highest enterprise conversion rates.</p>
-                    <div class="insight-stat">roi: 118% vs goal</div>
-                </div>
-                <div class="insight-card">
-                    <div class="insight-number">[ insight 02 ]</div>
-                    <h4>Outbound Gap</h4>
-                    <p>Outbound at 89% of goal indicates optimization opportunity.</p>
-                    <div class="insight-stat">opportunity: 11% upside</div>
-                </div>
-                <div class="insight-card">
-                    <div class="insight-number">[ insight 03 ]</div>
-                    <h4>Product-Led Success</h4>
-                    <p>Product source exceeding goal by 34% shows strong PLG motion.</p>
-                    <div class="insight-stat">growth: 134% vs goal</div>
-                </div>
-                <div class="insight-card">
-                    <div class="insight-number">[ insight 04 ]</div>
-                    <h4>Expansion Efficiency</h4>
-                    <p>Expansion pipeline at 140% demonstrates excellent CS performance.</p>
-                    <div class="insight-stat">highest_roi: 140% vs goal</div>
-                </div>
-            </div>
-        </div>
-    </div>
     
     <script>
         function downloadCSV() {
@@ -695,87 +664,43 @@
                         <li><strong>Top Source %:</strong> (Highest Source Amount ÷ Rep Total) × 100</li>
                     </ul>
                 </div>
-                
-                <div class="code-block">
-<span class="comment"># Sample SQL for pipeline source calculation with sales cycle</span>
-SELECT 
-    last_touch_source,
-    SUM(amount) as pipeline_amount,
-    COUNT(*) as opportunity_count,
-    AVG(amount) as avg_deal_size,
-    SUM(amount) / (SELECT SUM(amount) FROM opportunities) * 100 as pct_total,
-    AVG(DATEDIFF(close_date, created_date)) as avg_cycle_days
-FROM opportunities 
-WHERE created_date >= '2024-10-01' 
-    AND created_date <= '2024-12-31'
-    AND stage != 'Closed Lost'
-    AND close_date IS NOT NULL  <span class="comment"># Only include closed deals for cycle calculation</span>
-GROUP BY last_touch_source
-ORDER BY pipeline_amount DESC;
-
-<span class="comment"># Alternative: Include all pipeline with separate cycle calculation</span>
-SELECT 
-    o.last_touch_source,
-    SUM(o.amount) as pipeline_amount,
-    COUNT(o.*) as opportunity_count,
-    AVG(o.amount) as avg_deal_size,
-    AVG(CASE WHEN o.stage = 'Closed Won' 
-        THEN DATEDIFF(o.close_date, o.created_date) 
-        ELSE NULL END) as avg_cycle_days_closed_won
-FROM opportunities o
-WHERE o.created_date >= '2024-10-01' 
-    AND o.created_date <= '2024-12-31'
-    AND o.stage != 'Closed Lost'
-GROUP BY o.last_touch_source;
-                </div>
-                
-                <p>
-                    The attribution window tracks all interactions 60 days before opportunity creation. The hierarchy prioritizes partner referrals, then customer success expansion, sales outbound, marketing touches, and finally product sign-ups.
-                </p>
-            </section>
 
             <section class="section">
-                <h2>What this data actually tells you</h2>
+                <h2>Resource Constraint Decision Framework:</h2>
                 
                 <p>
-                    The dashboard reveals four critical insights that volume metrics miss entirely:
+                    Let's suppose that we have limited time/budget for Q4. We can use the combination of weight ratio and win rate to look for high ROI investments:
                 </p>
                 
-                <h3>1. Inbound is your revenue engine</h3>
-                <p>
-                    At 40% of total pipeline and 118% of goal, inbound marketing isn't just working—it's your most reliable growth lever. Sarah Chen and Alex Rivera, your top performers, generate 49% and 60% of their pipeline from inbound respectively.
-                </p>
+                <h3>Expansion (90% weight ratio + 45% win rate) = Immediate Priority</h3>
+                <ul>
+                    <ui>Requires least resources per dollar of reliable pipeline</ui>
+<ui>Existing relationships reduce sales cycle and increase predictability</ui>
+<ui>Action: Hire 1-2 CSMs with revenue quotas before adding more SDRs</ui>
+                </ul>
                 
-                <p>
-                    <strong>Action:</strong> Double down on content marketing, events, and SEO. Hire more content marketers before you hire more SDRs.
-                </p>
+                <h3>Product PLG (80% weight ratio + 35% win rate) = Scale Quickly</h3>
+                <ul>
+                    <ui>High conversion with minimal human intervention required</ui>
+<ui>23 day cycles enable rapid iteration and optimization</ui>
+<ui>Action: Invest in product conversion flows and trial experience over manual outreach</ui>
+                </ul>
                 
-                <h3>2. Outbound needs surgical optimization</h3>
-                <p>
-                    Outbound at 89% of goal isn't a failure—it's an opportunity. Marcus Johnson shows outbound can work (47% of his pipeline), but the methodology needs refinement.
-                </p>
+                <h3>Inbound (70% weight ratio + 28% win rate) = Steady Investment</h3>
+               <ul>
+                    <ui>Reliable volume with predictable conversion</ui>
+<ui>Lower resource intensity than outbound prospecting</ui>
+<ui>Action: Maintain current marketing spend, optimize for quality over quantity and keep current SDRs focused on this motion</ui>
+                </ul>
                 
-                <p>
-                    <strong>Action:</strong> Study Marcus's outbound playbook. Implement account-based prospecting. Better targeting beats higher volume.
-                </p>
-                
-                <h3>3. Product-led growth is underutilized</h3>
-                <p>
-                    Product source at 134% of goal with only 18% of total pipeline suggests massive upside. David Kim has found the PLG motion that works.
-                </p>
-                
-                <p>
-                    <strong>Action:</strong> Invest in in-product conversion flows. Scale David's approach across the SMB segment.
-                </p>
-                
-                <h3>4. Expansion is your hidden goldmine</h3>
-                <p>
-                    Expansion at 140% of goal proves customer success drives revenue growth, not just retention.
-                </p>
-                
-                <p>
-                    <strong>Action:</strong> Hire Customer Success Managers with sales quotas. Structure expansion as a dedicated motion.
-                </p>
+                <h3>Outbound (40% weight ratio + 18% win rate) = Last Priorit</h3>
+                 <ul>
+                    <ui>Highest resource requirement for lowest predictable return</ui>
+<ui>67-day cycles tie up rep capacity longest</ui>
+<ui>Action: Only invest after optimizing higher-ROI sources</ui>
+                </ul>
+                <p><b>The Resource Math:</b><br>
+With constrained budgets, expansion delivers $252K weighted pipeline from just 15 opportunities (45% win rate), while outbound requires 41 opportunities to generate $358K weighted pipeline (18% win rate). The efficiency difference is 3:1 in favor of expansion.</p>
             </section>
 
             <section class="section">
