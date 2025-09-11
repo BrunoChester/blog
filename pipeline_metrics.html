@@ -306,6 +306,7 @@
                     <li>Sales needs to be deeply involved because they have the nuanced understanding of deal flow, customer behavior, and market reality that the numbers should reflect.</li>
                     <li>The attribution model should be flexible enough to evolve based on what Sales is seeing in the field, because if the data doesn't align with their lived experience of where deals actually come from, the whole system becomes irrelevant.</li> 
                     <li>Set goals according to seasonality. Then turn on the dial on what works keeping in mind staffing</li>
+                    <li>Weighted Pipeline and Win rate will help you understand where to invest when time and/or resources are a constraint</li>
 
                 </ul></p>
             </section>
@@ -314,7 +315,7 @@
                 <h2>The problem with pipeline volume metrics</h2>
                 
                 <p>
-                    Traditional pipeline reporting tells you what happened traditionally by Teams Payroll and not why it happened. You see the numbers:
+                    Traditional pipeline reporting tells you what happened, traditionally, broken down by teams. But it does not clearly show why it happened. You see the numbers:
                 </p>
                 
                 <div class="stats-grid">
@@ -336,6 +337,7 @@
                     But you don't see the story behind the numbers. Which GTM motions are actually working? Where should you double down your investment? Which reps should focus on which activities?
                 </p>
                 
+                <h3>The Value of attribution by GTM Motions</h3>
                 <p>
                     GTM motions is a major pivot from traditional attribution breakdown by Marketing versus Sales. My time implemeting PQL at Github taught me that tiger teams are a real powerhouse for hyper-growth and rarely you will find a GTM play that consists of a single team working on it.
                 </p>
@@ -371,17 +373,17 @@
                 </p>
             </section>
 
-            <section class="section">
-                <h2>The real data: pipeline source breakdown</h2>
+             <section class="section">
+                <h2>Pipeline source breakdown</h2>
                 
                 <p>
-                    Here's what a good starting point for attribution model looks like in practice. This dashboard shows Q4 performance across different pipeline sources:
+                    Here's what a good starting point for attribution model looks like in practice. This dashboard shows Q4 performance across different pipeline sources with weighted forecasting intelligence:
                 </p>
                 
                 <div class="viz-container">
                     <div class="viz-header">
                         <div class="viz-title">Interactive Pipeline Source Attribution Dashboard</div>
-                        <div class="viz-subtitle">Full breakdown by source and rep performance</div>
+                        <div class="viz-subtitle">Full breakdown by source and rep performance with weighted pipeline forecasting</div>
                     </div>
                     <iframe class="dashboard-frame" srcdoc='<!DOCTYPE html>
 <html>
@@ -402,10 +404,10 @@
         .source-header { margin-bottom: 20px; }
         .source-header h4 { font-size: 16px; color: #1a1a1a; margin-bottom: 8px; font-weight: 700; }
         .source-desc { color: #666; font-size: 12px; line-height: 1.4; }
-        .metric { display: flex; justify-content: space-between; align-items: center; margin: 12px 0; padding: 8px 0; border-bottom: 1px solid #f0f0f0; }
+        .metric { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
         .metric:last-child { border-bottom: none; }
-        .metric-value { font-size: 18px; font-weight: 700; color: #1a1a1a; }
-        .metric-label { color: #666; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .metric-value { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+        .metric-label { color: #666; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .positive { color: #1a1a1a; }
         .warning { color: #666; }
         .table-section { margin: 0 40px 20px 40px; }
@@ -433,7 +435,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>GTM Pipeline Source Attribution</h1>
+            <h1>GTM Pipeline Source Attribution + Weighted Forecasting</h1>
             <p>Q4 2024 • Last-Touch Attribution Model</p>
         </div>
         
@@ -446,7 +448,7 @@
             <div style="background: #f5f5f5; border: 1px solid #e0e0e0; padding: 30px; margin-bottom: 40px;">
                 <div style="text-align: center; margin-bottom: 25px;">
                     <h3 style="font-size: 16px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px;">[ quarter_target_vs_attainment ]</h3>
-                    <div style="color: #666; font-size: 12px;">Pipeline target: $2.2M • Actual: $2.8M • Attainment: 127%</div>
+                    <div style="color: #666; font-size: 12px;">Pipeline target: $2.2M • Actual: $2.8M • Weighted: $1.8M • Attainment: 127%</div>
                 </div>
                 
                 <!-- Progress bar visualization -->
@@ -473,16 +475,16 @@
                         <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">generated</div>
                     </div>
                     <div style="background: #fafafa; padding: 15px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">$1.8M</div>
+                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">weighted</div>
+                    </div>
+                    <div style="background: #fafafa; padding: 15px; text-align: center;">
+                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">64%</div>
+                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">weight_ratio</div>
+                    </div>
+                    <div style="background: #fafafa; padding: 15px; text-align: center;">
                         <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">127%</div>
                         <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">attainment</div>
-                    </div>
-                    <div style="background: #fafafa; padding: 15px; text-align: center;">
-                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">142</div>
-                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">opportunities</div>
-                    </div>
-                    <div style="background: #fafafa; padding: 15px; text-align: center;">
-                        <div style="font-size: 14px; font-weight: 700; color: #1a1a1a;">$47K</div>
-                        <div style="font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-top: 3px;">avg_deal_size</div>
                     </div>
                 </div>
             </div>
@@ -498,6 +500,8 @@
                         <div class="source-desc">Marketing events, content, web forms</div>
                     </div>
                     <div class="metric"><span class="metric-value">$1.12M</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">$784K</span><span class="metric-label">Weighted</span></div>
+                    <div class="metric"><span class="metric-value positive">70%</span><span class="metric-label">Weight Ratio</span></div>
                     <div class="metric"><span class="metric-value positive">40%</span><span class="metric-label">of Total</span></div>
                     <div class="metric"><span class="metric-value positive">118%</span><span class="metric-label">vs Goal</span></div>
                     <div class="metric"><span class="metric-value">$67K</span><span class="metric-label">Avg Deal Size</span></div>
@@ -511,6 +515,8 @@
                         <div class="source-desc">Sales activities, cold outreach</div>
                     </div>
                     <div class="metric"><span class="metric-value">$896K</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">$358K</span><span class="metric-label">Weighted</span></div>
+                    <div class="metric"><span class="metric-value warning">40%</span><span class="metric-label">Weight Ratio</span></div>
                     <div class="metric"><span class="metric-value">32%</span><span class="metric-label">of Total</span></div>
                     <div class="metric"><span class="metric-value warning">89%</span><span class="metric-label">vs Goal</span></div>
                     <div class="metric"><span class="metric-value">$74K</span><span class="metric-label">Avg Deal Size</span></div>
@@ -524,6 +530,8 @@
                         <div class="source-desc">Trial sign-ups, in-product conversion</div>
                     </div>
                     <div class="metric"><span class="metric-value">$504K</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">$403K</span><span class="metric-label">Weighted</span></div>
+                    <div class="metric"><span class="metric-value positive">80%</span><span class="metric-label">Weight Ratio</span></div>
                     <div class="metric"><span class="metric-value">18%</span><span class="metric-label">of Total</span></div>
                     <div class="metric"><span class="metric-value positive">134%</span><span class="metric-label">vs Goal</span></div>
                     <div class="metric"><span class="metric-value">$29K</span><span class="metric-label">Avg Deal Size</span></div>
@@ -537,6 +545,8 @@
                         <div class="source-desc">Existing customer upsells</div>
                     </div>
                     <div class="metric"><span class="metric-value">$280K</span><span class="metric-label">Pipeline</span></div>
+                    <div class="metric"><span class="metric-value">$252K</span><span class="metric-label">Weighted</span></div>
+                    <div class="metric"><span class="metric-value positive">90%</span><span class="metric-label">Weight Ratio</span></div>
                     <div class="metric"><span class="metric-value">10%</span><span class="metric-label">of Total</span></div>
                     <div class="metric"><span class="metric-value positive">140%</span><span class="metric-label">vs Goal</span></div>
                     <div class="metric"><span class="metric-value">$93K</span><span class="metric-label">Avg Deal Size</span></div>
