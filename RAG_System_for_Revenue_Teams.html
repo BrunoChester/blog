@@ -497,6 +497,56 @@
             line-height: 1.6;
         }
 
+        /* EMBEDDED APP STYLES */
+        .embedded-app-section {
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            margin: 60px 0;
+            padding: 0;
+        }
+
+        .embedded-app-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #1a1a1a;
+            color: #fafafa;
+        }
+
+        .embedded-app-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .embedded-app-subtitle {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .embedded-app-container {
+            padding: 0;
+            background: #fff;
+        }
+
+        .embedded-iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+            display: block;
+        }
+
+        .app-instructions {
+            padding: 20px;
+            background: #fafafa;
+            border-top: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .app-instructions strong {
+            color: #1a1a1a;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -541,6 +591,10 @@
             .table-cell {
                 border-right: none;
                 border-bottom: 1px solid #e0e0e0;
+            }
+
+            .embedded-iframe {
+                height: 500px;
             }
         }
 
@@ -608,6 +662,28 @@
                 <p><strong>For Sales Teams</strong>: Instant access to contextually relevant responses, competitive positioning, and proof points without the document hunt.</p>
 
                 <p><strong>For Sales Operations</strong>: Systematic capture and retrieval of institutional knowledge that scales with your team and market expansion.</p>
+            </section>
+
+            <!-- EMBEDDED LIVE SYSTEM -->
+            <section class="embedded-app-section">
+                <div class="embedded-app-header">
+                    <div class="embedded-app-title">Live System Demo</div>
+                    <div class="embedded-app-subtitle">Try the actual sales assistant with real knowledge base</div>
+                </div>
+                <div class="embedded-app-container">
+                    <iframe 
+                        src="https://ragforrenevuewteams-production.up.railway.app/" 
+                        class="embedded-iframe"
+                        title="Sales Knowledge Assistant">
+                    </iframe>
+                </div>
+                <div class="app-instructions">
+                    <strong>Try these example queries:</strong>
+                    "How do I handle pricing objections?" • 
+                    "What are our competitive advantages?" • 
+                    "Show me a case study for enterprise clients" • 
+                    "How do I position against traditional solutions?"
+                </div>
             </section>
 
             <section class="section">
