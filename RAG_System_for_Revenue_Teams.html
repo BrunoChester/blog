@@ -870,24 +870,6 @@
                 <p><strong>Data Processing</strong>: Notion API extraction → intelligent text chunking (500 tokens, 50 overlap) → OpenAI embeddings creation → ChromaDB vector storage</p>
 
                 <p><strong>Query Processing</strong>: Question classification → semantic vector search → relevance filtering → context assembly → Gemini response generation</p>
-
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">947ms</div>
-                        <div class="stat-label">Avg Response Time</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">94.1%</div>
-                        <div class="stat-label">Relevance Accuracy</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">38</div>
-                        <div class="stat-label">Knowledge Chunks</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">1536</div>
-                        <div class="stat-label">Embedding Dimensions</div>
-                    </div>
                 </div>
 
                 <p><strong>Question Classification</strong>: Routes queries through specialized prompts based on intent detection (objections, competitive, product, general) for optimal response formatting.</p>
@@ -926,86 +908,30 @@
                     </div>
                 </div>
 
-                <p><strong>Key differentiators</strong>:</p>
-                <ul class="feature-list">
-                    <li>Semantic understanding surfaces related concepts through vector similarity</li>
-                    <li>Context preservation maintains relationships between knowledge pieces</li>
-                    <li>Adaptive responses based on question classification (objections vs. competitive vs. product)</li>
-                    <li>Source transparency with automatic attribution and confidence thresholds</li>
-                    <li>Sales-specific intelligence built for revenue scenarios</li>
-                </ul>
-            </section>
+               <section class="section">
+                <h2>Scaling considerations</h2>
 
-            <section class="section">
-                <h2>Results and business impact</h2>
+                <p>Most knowledge management systems break at scale. Not from technical limitations, but from organizational ones.</p>
 
-                <p><strong>Operational metrics</strong>:</p>
-                <ul class="feature-list">
-                    <li>10x faster information retrieval compared to manual document search</li>
-                    <li>78% user satisfaction with response relevance</li>
-                    <li>Linear scalability to enterprise knowledge bases (10K+ documents)</li>
-                    <li>99.7% system uptime with production-ready architecture</li>
-                </ul>
+                <p>The technical architecture handles growth reasonably well. TF-IDF vectorization scales linearly with document count. The Flask deployment can serve dozens of concurrent users on basic infrastructure. Adding documents means reprocessing the knowledge base, but that's a background operation that takes minutes, not hours.</p>
+
+                <p><strong>The real scaling challenge is knowledge quality.</strong></p>
+
+                <p>When you have 5 people contributing to your knowledge base, maintaining consistency is straightforward. When you have 50 people across different regions and functions, you get knowledge drift. Sales playbooks written by your East Coast enterprise team don't necessarily translate to your West Coast SMB motion. Competitive intelligence from your security-focused customers might not apply to your developer-focused prospects.</p>
+
+                <p>This creates a content governance problem disguised as a technical problem.</p>
+
+                <h3>Current implementation approach</h3>
+
+                <p>The system starts with structured Notion databases because structure forces clarity. You can't just dump random documents into the knowledge base and expect coherent responses. Each database has a specific purpose: playbooks, competitive intelligence, case studies, objections, product information.</p>
+
+                <p>This constraint is actually valuable. It forces teams to organize their institutional knowledge in ways that make sense for retrieval, not just storage.</p>
 
                 <p><strong>Strategic value</strong>: The system transforms scattered tribal knowledge into queryable, contextual intelligence available to every member of your revenue organization. It's the difference between having a filing cabinet and having a sales expert who's read everything and can instantly recall the most relevant information for your specific situation.</p>
-
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">78%</div>
-                        <div class="stat-label">Response Satisfaction</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">10x</div>
-                        <div class="stat-label">Faster Retrieval</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">35%</div>
-                        <div class="stat-label">Competitive Queries</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">30%</div>
-                        <div class="stat-label">Objection Queries</div>
-                    </div>
                 </div>
             </section>
 
-            <section class="section">
-                <h2>Implementation approach</h2>
-
-                <p>The system requires three API integrations (Notion, OpenAI, Google) and structured content organization in Notion databases. The modular architecture allows incremental deployment starting with high-impact use cases.</p>
-
-                <div class="process-grid">
-                    <div class="process-item">
-                        <div class="process-number">[ phase 01 ]</div>
-                        <div class="process-title">Core System Setup</div>
-                        <div class="process-desc">
-                            Weeks 1-2: Core system setup and initial knowledge base loading
-                        </div>
-                    </div>
-                    
-                    <div class="process-item">
-                        <div class="process-number">[ phase 02 ]</div>
-                        <div class="process-title">Production Deployment</div>
-                        <div class="process-desc">
-                            Weeks 3-4: Production deployment with monitoring and analytics
-                        </div>
-                    </div>
-                    
-                    <div class="process-item">
-                        <div class="process-number">[ phase 03 ]</div>
-                        <div class="process-title">Advanced Features</div>
-                        <div class="process-desc">
-                            Weeks 5-8: Advanced features and team integration
-                        </div>
-                    </div>
-
-                    <div class="process-item">
-                        <div class="process-number">[ phase 04 ]</div>
-                        <div class="process-title">Enterprise Scaling</div>
-                        <div class="process-desc">
-                            Weeks 9-12: Enterprise scaling and optimization
-                        </div>
-                    </div>
+            
                 </div>
 
                 <p>The technical complexity is handled through automated pipelines, allowing GTM teams to focus on content strategy and user adoption rather than implementation details.</p>
@@ -1020,12 +946,6 @@
 
                 <p><strong>Bottom line</strong>: Transform scattered sales wisdom into an intelligent assistant that knows your playbooks, understands your competitive landscape, and delivers the right information at the right moment in every sales conversation.</p>
 
-                <div class="code-block">
-                    <span class="comment"># The technical foundation</span><br>
-                    Knowledge Sources → AI Processing → Vector Storage → Intelligent Retrieval<br>
-                    <span class="comment"># The business outcome</span><br>
-                    Tribal Knowledge → Scalable Intelligence → Revenue Acceleration
-                </div>
             </section>
 
             <section class="section" style="border-top: 1px solid #e0e0e0; padding-top: 40px; margin-top: 60px; text-align: center; font-style: italic;">
