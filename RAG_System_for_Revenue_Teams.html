@@ -596,6 +596,55 @@
             .embedded-iframe {
                 height: 500px;
             }
+
+            .insights-container {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    background: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    padding: 0;
+}
+
+.insights-header {
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fafafa;
+}
+
+.insights-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: #e0e0e0;
+}
+
+.insight-item {
+    background: #fafafa;
+    padding: 30px;
+}
+
+.insight-text {
+    font-size: 16px;
+    color: #1a1a1a;
+    line-height: 1.6;
+}
+
+.insight-highlight {
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+@media (max-width: 768px) {
+    .insights-grid {
+        grid-template-columns: 1fr;
+    }
+}
         }
 
         /* Animation classes */
@@ -652,6 +701,39 @@
                 <p><strong>For Sales Operations</strong>: Systematic capture and retrieval of institutional knowledge that scales.</p>
 
                 <p><strong>For Product and Revenue Marketing</strong>: Up to date and nuance rich information for Playbooks, competitive intelligence, case studies, objection handling guides, product documentation.</p>
+
+                <div class="insights-container">
+    <div class="insights-header">
+        <div class="insights-title">Key insights</div>
+    </div>
+    
+    <div class="insights-grid">
+        <div class="insight-item">
+            <div class="insight-text">
+                Knowledge workers currently spend <span class="insight-highlight">less than 2 hours daily</span> on creative, strategic projects.
+            </div>
+        </div>
+        
+        <div class="insight-item">
+            <div class="insight-text">
+                Over <span class="insight-highlight">90% of knowledge workers</span> report challenges related to collaboration, communication, mental blocks, and last-minute deadlines.
+            </div>
+        </div>
+        
+        <div class="insight-item">
+            <div class="insight-text">
+                Nearly <span class="insight-highlight">2/3 of knowledge workers</span> agree that maintenance tasks (62%) and silos (61%) stall momentum in their organization.
+            </div>
+        </div>
+        
+        <div class="insight-item">
+            <div class="insight-text">
+                <span class="insight-highlight">Seventy-four percent</span> of knowledge workers say that collaboration is a top determinant of what makes a good workday.
+            </div>
+        </div>
+    </div>
+</div>
+            
             </section>
 
             <!-- EMBEDDED LIVE SYSTEM -->
