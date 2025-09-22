@@ -673,80 +673,17 @@
                 </div>
                 <div class="app-instructions">
                     <strong>Try these example queries:</strong>
-                    "How do I handle xbox pricing objections?" • 
+                    "How do I handle xbow pricing objections?" • 
                     "What are xbow competitive advantages?" • 
                     "How do I position xbow against traditional solutions?"
                 </div>
             </section>
 
             <section class="section">
-                <h2>The architecture</h2>
-                
-                <div class="architecture-container">
-                    <div class="architecture-header">
-                        <div class="architecture-title">Sales RAG System Architecture</div>
-                        <div class="architecture-subtitle">From knowledge extraction to intelligent retrieval</div>
-                    </div>
-                    <div class="architecture-diagram">
-                        <div class="data-flow">
-                            <div class="flow-dot"></div>
-                            <div class="flow-dot"></div>
-                            <div class="flow-dot"></div>
-                            <div class="flow-dot"></div>
-                        </div>
-                        
-                        <div class="architecture-column">
-                            <div class="column-header">[ sources ]</div>
-                            <div class="architecture-step">
-                                <div class="step-icon" data-icon="📚"></div>
-                                <div class="step-title">Notion Databases</div>
-                                <div class="step-description">5 specialized knowledge repositories</div>
-                            </div>
-                        </div>
-                        
-                        <div class="architecture-arrow arrow-1">→</div>
-                        
-                        <div class="architecture-column">
-                            <div class="column-header">[ processing ]</div>
-                            <div class="architecture-step">
-                                <div class="step-icon" data-icon="⚡"></div>
-                                <div class="step-title">AI Processing</div>
-                                <div class="step-description">Extract, chunk, embed</div>
-                            </div>
-                        </div>
-                        
-                        <div class="architecture-arrow arrow-2">→</div>
-                        
-                        <div class="architecture-column">
-                            <div class="column-header">[ storage ]</div>
-                            <div class="architecture-step">
-                                <div class="step-icon" data-icon="🗄️"></div>
-                                <div class="step-title">Vector Storage</div>
-                                <div class="step-description">ChromaDB with 1536-dim embeddings</div>
-                            </div>
-                        </div>
-                        
-                        <div class="architecture-arrow arrow-3">→</div>
-                        
-                        <div class="architecture-column">
-                            <div class="column-header">[ interface ]</div>
-                            <div class="architecture-step">
-                                <div class="step-icon" data-icon="🤖"></div>
-                                <div class="step-title">AI Response</div>
-                                <div class="step-description">Context-aware generation</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="query-section">
-                        <div class="query-text">Query: "How do I handle pricing objections?"</div>
-                        <div class="query-metrics">947ms avg response • 94.1% relevance accuracy • 5 knowledge sources</div>
-                    </div>
-                </div>
 
                 <p>The system operates on four layers: <strong>knowledge extraction</strong> from structured Notion databases, <strong>AI processing</strong> that creates semantic embeddings, <strong>vector storage</strong> that enables similarity search, and <strong>intelligent response generation</strong> that understands sales context.</p>
 
-                <p><strong>Required knowledge sources</strong>:</p>
+                <p><strong>Current Knowledge sources</strong>:</p>
 
                 <ol class="numbered-list">
                     <li><strong>Sales Playbooks</strong> - Methodology, process documentation, best practices</li>
@@ -854,47 +791,6 @@
                     </div>
                 </div>
             </section>
-
-            <section class="section">
-                <h2>Technical architecture overview</h2>
-
-                <p>The system implements a sophisticated RAG (Retrieval-Augmented Generation) pipeline optimized for sales knowledge:</p>
-
-                <p><strong>Data Processing</strong>: Notion API extraction → intelligent text chunking (500 tokens, 50 overlap) → OpenAI embeddings creation → ChromaDB vector storage</p>
-
-                <p><strong>Query Processing</strong>: Question classification → semantic vector search → relevance filtering → context assembly → Gemini response generation</p>
-                </div>
-
-                <p><strong>Question Classification</strong>: Routes queries through specialized prompts based on intent detection (objections, competitive, product, general) for optimal response formatting.</p>
-            </section>
-
-            <section class="section">
-                <h2>What makes this different</h2>
-
-                <p>Most knowledge management systems are glorified search engines. This system understands sales context and generates responses tailored to specific situations.</p>
-
-                <div class="comparison-table">
-                    <div class="table-header">
-                        <div class="table-header-cell">Traditional Systems</div>
-                        <div class="table-header-cell">Sales RAG System</div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">Keyword search</div>
-                        <div class="table-cell highlight">Sales-context understanding</div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">Raw document retrieval</div>
-                        <div class="table-cell highlight">Contextual generation</div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">Manual navigation</div>
-                        <div class="table-cell highlight">Sales scenario optimization</div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">No source attribution</div>
-                        <div class="table-cell highlight">Relevance-scored sources</div>
-                    </div>
-                </div>
 
                <section class="section">
                 <h2>Scaling considerations</h2>
