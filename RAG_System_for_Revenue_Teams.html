@@ -56,197 +56,6 @@
             gap: 20px;
         }
 
-        /* ARCHITECTURE DIAGRAM STYLES */
-        .architecture-container {
-            max-width: 800px;
-            margin: 0 auto 60px auto;
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            padding: 0;
-        }
-
-        .architecture-header {
-            padding: 20px;
-            border-bottom: 1px solid #e0e0e0;
-            background: #fafafa;
-        }
-
-        .architecture-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
-
-        .architecture-subtitle {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .architecture-diagram {
-            padding: 60px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            min-height: 400px;
-        }
-
-        .architecture-column {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .column-header {
-            font-size: 12px;
-            font-weight: 700;
-            color: #666;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-align: center;
-        }
-
-        .architecture-step {
-            width: 180px;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .step-icon {
-            width: 60px;
-            height: 60px;
-            border: 2px solid #1a1a1a;
-            background: #fafafa;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            position: relative;
-            transition: all 0.3s ease;
-            animation: scaleIn 0.6s ease forwards;
-            transform: scale(0);
-        }
-
-        .step-icon:hover {
-            background: #1a1a1a;
-            color: #fafafa;
-        }
-
-        .step-icon::before {
-            content: attr(data-icon);
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .step-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-            text-align: center;
-        }
-
-        .step-description {
-            font-size: 12px;
-            color: #666;
-            text-align: center;
-            line-height: 1.4;
-        }
-
-        /* Architecture arrows */
-        .architecture-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            font-size: 20px;
-            color: #ccc;
-            animation: flow 2s ease-in-out infinite;
-        }
-
-        .arrow-1 {
-            left: calc(25% - 10px);
-        }
-
-        .arrow-2 {
-            left: calc(50% - 10px);
-        }
-
-        .arrow-3 {
-            right: calc(25% - 10px);
-        }
-
-        @keyframes flow {
-            0%, 100% { opacity: 0.5; transform: translateY(-50%) translateX(0); }
-            50% { opacity: 1; transform: translateY(-50%) translateX(3px); }
-        }
-
-        /* Data flow visualization */
-        .data-flow {
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 8px;
-            opacity: 0;
-            animation: fadeInUp 1s ease 0.8s forwards;
-        }
-
-        .flow-dot {
-            width: 6px;
-            height: 6px;
-            background: #666;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        .flow-dot:nth-child(1) { animation-delay: 0s; }
-        .flow-dot:nth-child(2) { animation-delay: 0.2s; }
-        .flow-dot:nth-child(3) { animation-delay: 0.4s; }
-        .flow-dot:nth-child(4) { animation-delay: 0.6s; }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.5); opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateX(-50%) translateY(20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
-        }
-
-        /* Query section */
-        .query-section {
-            margin-top: 40px;
-            text-align: center;
-            padding: 20px;
-            background: #1a1a1a;
-            color: #fafafa;
-            border-radius: 0;
-        }
-
-        .query-text {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .query-metrics {
-            font-size: 12px;
-            color: #ccc;
-        }
-
         /* Content */
         .content {
             margin-bottom: 60px;
@@ -313,18 +122,6 @@
             color: #666;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        /* Code blocks */
-        .code-block {
-            background: #1a1a1a;
-            color: #fafafa;
-            padding: 20px;
-            margin: 30px 0;
-            border: 1px solid #333;
-            font-family: 'Space Mono', monospace;
-            font-size: 14px;
-            overflow-x: auto;
         }
 
         /* Process Grid */
@@ -409,49 +206,6 @@
             font-weight: 700;
             color: #666;
             font-size: 14px;
-        }
-
-        /* Comparison table */
-        .comparison-table {
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
-            margin: 40px 0;
-            overflow: hidden;
-        }
-
-        .table-header {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            background: #1a1a1a;
-            color: #fafafa;
-        }
-
-        .table-header-cell {
-            padding: 20px;
-            font-weight: 700;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .table-cell {
-            padding: 20px;
-            font-size: 14px;
-            border-right: 1px solid #e0e0e0;
-            background: #fafafa;
-        }
-
-        .table-cell:last-child {
-            border-right: none;
-        }
-
-        .table-cell.highlight {
-            background: #ffffcc;
         }
 
         /* Demo sections */
@@ -547,6 +301,50 @@
             color: #1a1a1a;
         }
 
+        /* KEY INSIGHTS STYLES */
+        .insights-container {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 0;
+        }
+
+        .insights-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .insights-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: #e0e0e0;
+        }
+
+        .insight-item {
+            background: #fafafa;
+            padding: 30px;
+        }
+
+        .insight-text {
+            font-size: 16px;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .insight-highlight {
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .container {
@@ -565,96 +363,13 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .architecture-diagram {
-                flex-direction: column;
-                gap: 40px;
-                padding: 40px 20px;
-            }
-
-            .architecture-arrow {
-                position: static;
-                transform: rotate(90deg);
-                margin: 20px 0;
-            }
-
-            .arrow-1, .arrow-2, .arrow-3 {
-                left: auto;
-                right: auto;
-                top: auto;
-            }
-
-            .table-header,
-            .table-row {
-                grid-template-columns: 1fr;
-            }
-
-            .table-cell {
-                border-right: none;
-                border-bottom: 1px solid #e0e0e0;
-            }
-
             .embedded-iframe {
                 height: 500px;
             }
 
-            .insights-container {
-    max-width: 800px;
-    margin: 0 auto 60px auto;
-    background: #f5f5f5;
-    border: 1px solid #e0e0e0;
-    padding: 0;
-}
-
-.insights-header {
-    padding: 20px;
-    border-bottom: 1px solid #e0e0e0;
-    background: #fafafa;
-}
-
-.insights-title {
-    font-size: 24px;
-    font-weight: 700;
-    color: #1a1a1a;
-}
-
-.insights-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: #e0e0e0;
-}
-
-.insight-item {
-    background: #fafafa;
-    padding: 30px;
-}
-
-.insight-text {
-    font-size: 16px;
-    color: #1a1a1a;
-    line-height: 1.6;
-}
-
-.insight-highlight {
-    font-weight: 700;
-    color: #1a1a1a;
-}
-
-@media (max-width: 768px) {
-    .insights-grid {
-        grid-template-columns: 1fr;
-    }
-}
-        }
-
-        /* Animation classes */
-        .architecture-column:nth-child(1) .step-icon { animation-delay: 0.2s; }
-        .architecture-column:nth-child(2) .step-icon { animation-delay: 0.4s; }
-        .architecture-column:nth-child(3) .step-icon { animation-delay: 0.6s; }
-        .architecture-column:nth-child(4) .step-icon { animation-delay: 0.8s; }
-
-        @keyframes scaleIn {
-            to { transform: scale(1); }
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         strong, b {
@@ -702,38 +417,24 @@
 
                 <p><strong>For Product and Revenue Marketing</strong>: Up to date and nuance rich information for Playbooks, competitive intelligence, case studies, objection handling guides, product documentation.</p>
 
-                <div class="insights-container">
-    <div class="insights-header">
-        <div class="insights-title">Key insights</div>
-    </div>
-    
-    <div class="insights-grid">
-        <div class="insight-item">
-            <div class="insight-text">
-                Knowledge workers currently spend <span class="insight-highlight">less than 2 hours daily</span> on creative, strategic projects.
-            </div>
-        </div>
-        
-        <div class="insight-item">
-            <div class="insight-text">
-                Over <span class="insight-highlight">90% of knowledge workers</span> report challenges related to collaboration, communication, mental blocks, and last-minute deadlines.
-            </div>
-        </div>
-        
-        <div class="insight-item">
-            <div class="insight-text">
-                Nearly <span class="insight-highlight">2/3 of knowledge workers</span> agree that maintenance tasks (62%) and silos (61%) stall momentum in their organization.
-            </div>
-        </div>
-        
-        <div class="insight-item">
-            <div class="insight-text">
-                <span class="insight-highlight">Seventy-four percent</span> of knowledge workers say that collaboration is a top determinant of what makes a good workday.
-            </div>
-        </div>
-    </div>
-</div>
-            
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">5min</div>
+                        <div class="stat-label">Setup Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Global Access</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Knowledge Silos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1536</div>
+                        <div class="stat-label">Vector Dimensions</div>
+                    </div>
+                </div>
             </section>
 
             <!-- EMBEDDED LIVE SYSTEM -->
@@ -757,8 +458,40 @@
                 </div>
             </section>
 
-            <section class="section">
+            <!-- KEY INSIGHTS SECTION -->
+            <div class="insights-container">
+                <div class="insights-header">
+                    <div class="insights-title">Key insights</div>
+                </div>
+                
+                <div class="insights-grid">
+                    <div class="insight-item">
+                        <div class="insight-text">
+                            Knowledge workers currently spend <span class="insight-highlight">less than 2 hours daily</span> on creative, strategic projects.
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-text">
+                            Over <span class="insight-highlight">90% of knowledge workers</span> report challenges related to collaboration, communication, mental blocks, and last-minute deadlines.
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-text">
+                            Nearly <span class="insight-highlight">2/3 of knowledge workers</span> agree that maintenance tasks (62%) and silos (61%) stall momentum in their organization.
+                        </div>
+                    </div>
+                    
+                    <div class="insight-item">
+                        <div class="insight-text">
+                            <span class="insight-highlight">Seventy-four percent</span> of knowledge workers say that collaboration is a top determinant of what makes a good workday.
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <section class="section">
                 <p>The system operates on four layers: <strong>knowledge extraction</strong> from structured Notion databases, <strong>AI processing</strong> that creates semantic embeddings, <strong>vector storage</strong> that enables similarity search, and <strong>intelligent response generation</strong> that understands sales context.</p>
 
                 <p><strong>Current Knowledge sources</strong>:</p>
@@ -824,7 +557,7 @@
                 </div>
             </section>
 
-               <section class="section">
+            <section class="section">
                 <h2>Scaling considerations</h2>
 
                 <p>Most knowledge management systems break at scale. Not from technical limitations, but from organizational ones.</p>
@@ -843,7 +576,7 @@
 
                 <p>This constraint is actually valuable. It forces teams to organize their institutional knowledge in ways that make sense for retrieval, not just storage.</p>
 
-                   <h2>Strategic applications</h2>
+                <h2>Strategic applications</h2>
 
                 <div class="process-grid">
                     <div class="process-item">
@@ -874,7 +607,7 @@
                         <div class="process-number">[ use case 04 ]</div>
                         <div class="process-title">Knowledge Capture</div>
                         <div class="process-desc">
-                            Systematic extraction and organization of tribal knowledge into searchable, retrievable formats that scale across the entire revenue organization.
+                            Systematic extraction and organization of institutional knowledge into searchable, retrievable formats that scale across the entire revenue organization.
                         </div>
                     </div>
 
@@ -886,26 +619,13 @@
                         </div>
                     </div>
                 </div>
-                   <h2>Strategic value</h2>
 
-    <p>The system transforms scattered tribal knowledge into queryable, contextual intelligence available to every member of your revenue organization. It's the difference between having a filing cabinet and having a sales expert who's read everything and can instantly recall the most relevant information for your specific situation.</p>
-                <p>The technical complexity is handled through automated pipelines, allowing GTM teams to focus on content strategy and user adoption rather than implementation details.</p>
-
-            </section>
-
-                </div>
-
-            </section>
-
-    </section>
-
-    <section class="section">
                 <h2>Strategic value</h2>
 
-    <p>The system transforms scattered tribal knowledge into queryable, contextual intelligence available to every member of your revenue organization. It's the difference between having a filing cabinet and having a sales expert who's read everything and can instantly recall the most relevant information for your specific situation.</p>
-                <p>The technical complexity is handled through automated pipelines, allowing GTM teams to focus on content strategy and user adoption rather than implementation details.</p>
+                <p>The system transforms scattered institutional knowledge into queryable, contextual intelligence available to every member of your revenue organization. It's the difference between having a filing cabinet and having a sales expert who's read everything and can instantly recall the most relevant information for your specific situation.</p>
 
-    </section>
+                <p>Implementation is straightforward - the complexity is in organizing your knowledge, not deploying the system.</p>
+            </section>
 
             <section class="section" style="border-top: 1px solid #e0e0e0; padding-top: 40px; margin-top: 60px; text-align: center; font-style: italic;">
                 <p><em>Thank you for reading until here -- Let's scale this together?</em></p>
