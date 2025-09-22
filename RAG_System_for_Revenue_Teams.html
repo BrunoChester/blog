@@ -636,39 +636,35 @@
         <main class="content">
             <section class="section">
                 <p class="intro-text">
-                    Sales teams today face an information paradox.
+                    When it comes to GTM I've observed a similar pattern at hyper growth start-ups: Growth stages are tied to overall knowledge accumulation that is scattered across several docs, slack channels, etc.
                 </p>
                 
                 <p class="intro-text">
-                    The more successful your revenue organization becomes, the more knowledge it accumulates. Playbooks, competitive intelligence, case studies, objection handling guides, product documentation—all scattered across different databases, folders, and tribal memory.
+                    At Github and Vercel this knowledge explosion happened at exactly the moment when we needed to scale our sales motion most efficiently. We were finding product-market fit, expanding into new segments, and bringing on new reps who needed to ramp quickly. The knowledge that got us to that point became a bottleneck to getting past it.
                 </p>
 
-                <p>But here's what's interesting: this knowledge explosion happens at exactly the moment when you need to scale your sales motion most efficiently. You're finding product-market fit, expanding into new segments, and bringing on new reps who need to ramp quickly. The knowledge that got you to this point becomes a bottleneck to getting past it.</p>
+                <p>At both places this moment was also when Attribution became an important project. We were all hands on deck creating pipeline, but needed to understand what was working. You can read more about how I designed their Revenue Attribution for Pipeline Tracking and Capacity Planning <a href="https://brunochester.github.io/blog/pipeline_metrics">here</a>.</p>
 
-                <p>A rep preparing for a call with a prospect who just raised pricing concerns doesn't need access to 47 different documents. They need the specific objection handling framework that worked with similar prospects, the case study that addresses their industry, and the competitive positioning that counters their likely alternatives.</p>
+                <p>Back to the information overload and its impact on daily activities a great example is a rep preparing for a call with a prospect who just raised pricing concerns. They don't need access to 10+ different documents or know the exact person to ping. They need the specific objection handling framework that worked with similar prospects, the case study that addresses the prospect industry, and the competitive positioning that counters their likely alternatives.</p>
 
-                <p>But finding that information means searching through multiple systems, scanning dozens of pages, and hoping you remember where the good stuff is stored. By the time you've found what you need, the call is over. Meanwhile, your newest reps—the ones you need to succeed quickly to validate your expansion strategy—are struggling to absorb months of accumulated tribal knowledge.</p>
+                <p>But finding that information means searching through multiple systems, scanning dozens of pages, and hoping you remember where the latest golden nugget was shared. By the time they've found what they need, the call is over. Meanwhile, a freshly onboarded reps, <i>the ones we need to succeed quickly to continue the growth trajectory</i>, are struggling to absorb months of accumulated institutional knowledge.</p>
+                
 
-                <p><strong>The knowledge management problem is actually a scaling problem disguised as an information problem.</strong></p>
+                <p><strong>This project explores using AI to build that kind of sales intelligence. A system that understands sales context well enough to surface the right information at the right moment, enabling both institutional knowledge and growth to scale.</strong></p>
 
-                <p>Companies with strong product-market fit accumulate institutional knowledge faster than they can systematize it. What worked when you had 5 reps and everyone knew everything doesn't work when you have 50 reps across multiple segments and geographies.</p>
-
-                <p><strong>What if AI could handle the knowledge scaling while you focus on market expansion?</strong></p>
-
-                <p>Instead of hunting through documents, what if you could simply ask: "How do I handle pricing objections for enterprise prospects concerned about ROI?" and get back the exact response framework, supporting case study, and competitive differentiation you need? What if new reps could access senior-level sales intelligence from day one instead of month six?</p>
-
-                <p>This project explores building that kind of sales intelligence—AI that doesn't just store your knowledge, but understands sales context well enough to surface the right information at the right moment, enabling knowledge to scale as fast as your growth.</p>
 
                 <p><strong>For Sales Teams</strong>: Instant access to contextually relevant responses, competitive positioning, and proof points without the document hunt.</p>
 
-                <p><strong>For Sales Operations</strong>: Systematic capture and retrieval of institutional knowledge that scales with your team and market expansion.</p>
+                <p><strong>For Sales Operations</strong>: Systematic capture and retrieval of institutional knowledge that scales.</p>
+
+                <p><strong>For Product and Revenue Marketing</strong>: Up to date and nuance rich information for Playbooks, competitive intelligence, case studies, objection handling guides, product documentation.</p>
             </section>
 
             <!-- EMBEDDED LIVE SYSTEM -->
             <section class="embedded-app-section">
                 <div class="embedded-app-header">
                     <div class="embedded-app-title">Live System Demo</div>
-                    <div class="embedded-app-subtitle">Try the actual sales assistant with a xbow made-up knowledge base</div>
+                    <div class="embedded-app-subtitle">Try the actual sales assistant with real knowledge base</div>
                 </div>
                 <div class="embedded-app-container">
                     <iframe 
@@ -679,8 +675,8 @@
                 </div>
                 <div class="app-instructions">
                     <strong>Try these example queries:</strong>
-                    "How do I handle xbow pricing objections?" • 
-                    "What are xbow's competitive advantages?" •  
+                    "How do I handle xbox pricing objections?" • 
+                    "What are xbow competitive advantages?" • 
                     "How do I position xbow against traditional solutions?"
                 </div>
             </section>
@@ -862,8 +858,6 @@
             </section>
 
             <section class="section">
-                <div class="technical-section">
-                    <div class="technical-header">
                 <h2>Technical architecture overview</h2>
 
                 <p>The system implements a sophisticated RAG (Retrieval-Augmented Generation) pipeline optimized for sales knowledge:</p>
@@ -874,7 +868,7 @@
                 </div>
 
                 <p><strong>Question Classification</strong>: Routes queries through specialized prompts based on intent detection (objections, competitive, product, general) for optimal response formatting.</p>
-                </div></iv></section>
+            </section>
 
             <section class="section">
                 <h2>What makes this different</h2>
@@ -884,27 +878,22 @@
                 <div class="comparison-table">
                     <div class="table-header">
                         <div class="table-header-cell">Traditional Systems</div>
-                        <div class="table-header-cell">Generic RAG</div>
                         <div class="table-header-cell">Sales RAG System</div>
                     </div>
                     <div class="table-row">
                         <div class="table-cell">Keyword search</div>
-                        <div class="table-cell">Basic semantic search</div>
                         <div class="table-cell highlight">Sales-context understanding</div>
                     </div>
                     <div class="table-row">
                         <div class="table-cell">Raw document retrieval</div>
-                        <div class="table-cell">Generic responses</div>
                         <div class="table-cell highlight">Contextual generation</div>
                     </div>
                     <div class="table-row">
                         <div class="table-cell">Manual navigation</div>
-                        <div class="table-cell">Basic relevance scoring</div>
                         <div class="table-cell highlight">Sales scenario optimization</div>
                     </div>
                     <div class="table-row">
                         <div class="table-cell">No source attribution</div>
-                        <div class="table-cell">Simple attribution</div>
                         <div class="table-cell highlight">Relevance-scored sources</div>
                     </div>
                 </div>
@@ -930,6 +919,23 @@
 
                 <p><strong>Strategic value</strong>: The system transforms scattered tribal knowledge into queryable, contextual intelligence available to every member of your revenue organization. It's the difference between having a filing cabinet and having a sales expert who's read everything and can instantly recall the most relevant information for your specific situation.</p>
                 </div>
+            </section>
+
+            
+                </div>
+
+                <p>The technical complexity is handled through automated pipelines, allowing GTM teams to focus on content strategy and user adoption rather than implementation details.</p>
+            </section>
+
+            <section class="section">
+                <h2>The strategic gist</h2>
+
+                <p>Revenue teams with AI-powered knowledge management that understands sales context, preserves institutional memory, and delivers expert-level responses through natural language queries.</p>
+
+                <p>This isn't just better search - it's contextual sales intelligence that scales tribal knowledge across your entire revenue organization.</p>
+
+                <p><strong>Bottom line</strong>: Transform scattered sales wisdom into an intelligent assistant that knows your playbooks, understands your competitive landscape, and delivers the right information at the right moment in every sales conversation.</p>
+
             </section>
 
             <section class="section" style="border-top: 1px solid #e0e0e0; padding-top: 40px; margin-top: 60px; text-align: center; font-style: italic;">
