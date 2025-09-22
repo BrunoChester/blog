@@ -453,8 +453,8 @@
 
                 <h2>Live System Demo</h2>
 
-                <p>The live demo below showcases this system using XBOW, an AI-powered penetration testing platform, as the use case.</p>
-                <p>XBOW represents the type of high-growth B2B company where knowledge scaling could be critical - they're expanding rapidly while building sophisticated sales motions around complex technical products. For this demonstration, I've populated the system with sample sales content rather than XBOW's actual proprietary knowledge base.</p>
+                <p>The live demo below showcases this system using XBOW, an AI native penetration testing platform, as the use case.</p>
+                <p>XBOW represents the type of high-growth B2B company where knowledge scaling could be critical. They're expanding rapidly while building sophisticated sales motions around complex technical products. For this demonstration, I've populated the system with sample sales content rather than XBOW's actual proprietary knowledge base.</p>
                 <p>The responses show how the system would work with real competitive intelligence, objection handling, and product positioning data in a cybersecurity context.</p>
             </section>
 
@@ -550,15 +550,27 @@
             <section class="section">
                 <h2>Scaling considerations</h2>
 
-                <p>Most knowledge management systems break at scale. Not from technical limitations, but from organizational ones.</p>
+                <p>A key lesson that Microsoft has taught me is that knowledge management systems break at scale. Not from technical limitations, but from organizational ones.</p>
 
-                <p>The technical architecture handles growth reasonably well. TF-IDF vectorization scales linearly with document count. The Flask deployment can serve dozens of concurrent users on basic infrastructure. Adding documents means reprocessing the knowledge base, but that's a background operation that takes minutes, not hours.</p>
+                <p>This light technical architecture handles growth reasonably well for example. TF-IDF vectorization scales linearly with document count. The Flask deployment can serve dozens of concurrent users on basic infrastructure. Adding documents means reprocessing the knowledge base, but that's a background operation that takes minutes, not hours.</p>
 
                 <p><strong>The real scaling challenge is knowledge quality.</strong></p>
 
-                <p>When you have 5 people contributing to your knowledge base, maintaining consistency is straightforward. When you have 50 people across different regions and functions, you get knowledge drift. Sales playbooks written by your East Coast enterprise team don't necessarily translate to your West Coast SMB motion. Competitive intelligence from your security-focused customers might not apply to your developer-focused prospects.</p>
+                <p>When we left Copilot agents read through everything it started surfacing incomplete or contextually inappropriate information as authoritative sources. Work-in-progress documents, internal debates, and region-specific guidance all get treated equally by the retrieval system</p>
+                
+                <p>At Vercel we initially had 5 people contributing to our knowledge base, maintaining consistency was straightforward. When we grew the team to 30+ people across different regions and functions, we saw a knowledge drift. Sales playbooks written by our East Coast enterprise team didn't necessarily translated to our West Coast SMB motion. Competitive intelligence from our V0 focused customers didn't apply to our Ent developer focused prospects.</p>
 
                 <p>This creates a content governance problem disguised as a technical problem.</p>
+
+<h3>Practical scaling solutions built in this project I wish I had before:</h3>
+
+<p><b>The system addresses content governance through structured content requirements and automated quality checks.</b> Each Notion database enforces specific schemas - objection responses must include context, competitive intelligence requires date stamps, case studies need outcome metrics.</p>
+
+<p><b>Content freshness becomes trackable.</b> The system flags outdated information and surfaces gaps in coverage. When competitive intelligence about a vendor hasn't been updated in six months, it appears in governance dashboards rather than customer-facing responses.</p>
+
+<p><b>Role-based content permissions prevent knowledge drift.</b> Enterprise playbooks stay separate from SMB guidance. Regional teams can access shared frameworks while maintaining local customizations. The vector search respects these boundaries - West Coast reps don't get East Coast enterprise responses unless explicitly relevant.</p>
+
+<p><b>The system makes knowledge gaps visible.</b> When reps consistently ask questions that return low-relevance results, those queries become content creation priorities. Instead of guessing what knowledge is missing, you see exactly where your coverage breaks down.</p>
 
                 <h3>Current implementation approach</h3>
 
