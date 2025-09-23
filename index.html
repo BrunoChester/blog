@@ -26,9 +26,9 @@
             overflow-x: hidden;
         }
 
-        /* Hero Section */
+        /* Hero Section - More Compact */
         .hero {
-            min-height: 100vh;
+            min-height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -94,29 +94,6 @@
             animation: fadeInUp 1s ease 0.9s forwards;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: transparent;
-            border: 2px solid #fafafa;
-            color: #fafafa;
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 1s ease 1.1s forwards;
-        }
-
-        .cta-button:hover {
-            background: #fafafa;
-            color: #1a1a1a;
-            transform: translateY(-2px);
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -128,99 +105,32 @@
             }
         }
 
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 20px 0;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .nav.visible {
-            transform: translateY(0);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            color: #fafafa;
-            font-weight: 700;
-            font-size: 16px;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #ccc;
-            text-decoration: none;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #fafafa;
-        }
-
         /* Main Content */
         .main-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-header h2 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            letter-spacing: -0.01em;
-        }
-
-        .section-header p {
-            font-size: 18px;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        /* Articles Grid */
+        /* Articles Grid - 2 Column Square Tiles */
         .articles-grid {
             display: grid;
-            gap: 60px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
             margin-bottom: 100px;
         }
 
         .article-card {
+            aspect-ratio: 1;
             background: #fff;
             border: 1px solid #e0e0e0;
             transition: all 0.3s ease;
             opacity: 0;
             transform: translateY(50px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .article-card.visible {
@@ -229,101 +139,79 @@
         }
 
         .article-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .article-preview {
-            height: 400px;
-            background: #f5f5f5;
-            border-bottom: 1px solid #e0e0e0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .article-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .article-card:hover .article-preview img {
-            transform: scale(1.05);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #1a1a1a;
         }
 
         .article-content {
-            padding: 40px;
-        }
-
-        .article-meta {
-            font-size: 12px;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .article-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 20px;
-            line-height: 1.3;
-        }
-
-        .article-excerpt {
-            font-size: 16px;
-            color: #333;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .article-stats {
+            padding: 30px;
+            flex: 1;
             display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f5f5f5;
-            border: 1px solid #e0e0e0;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .stat-item {
-            text-align: center;
+        .article-top {
             flex: 1;
         }
 
-        .stat-number {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
+        .article-meta {
             font-size: 10px;
-            color: #666;
+            color: #999;
             text-transform: uppercase;
             letter-spacing: 1px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .article-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-excerpt {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-bottom {
+            border-top: 1px solid #f0f0f0;
+            padding-top: 20px;
+            margin-top: auto;
         }
 
         .read-more {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 8px 20px;
             background: #1a1a1a;
             color: #fafafa;
             text-decoration: none;
             font-family: 'Space Mono', monospace;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
         }
 
         .read-more:hover {
             background: #333;
-            transform: translateX(5px);
         }
 
         /* Footer */
@@ -364,21 +252,43 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
             .articles-grid {
-                gap: 40px;
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
             
-            .article-content {
-                padding: 30px 20px;
-            }
-            
-            .article-stats {
+            .article-card:first-child {
+                grid-column: 1;
+                aspect-ratio: 1;
+                display: flex;
                 flex-direction: column;
-                gap: 15px;
+                grid-template-columns: none;
+            }
+
+            .article-card:first-child .article-content {
+                padding: 30px;
+            }
+
+            .article-card:first-child .article-title {
+                font-size: 20px;
+            }
+
+            .article-card:first-child .article-excerpt {
+                font-size: 14px;
+            }
+
+            .article-card:first-child .article-visual {
+                order: -1;
+                margin: -30px -30px 20px -30px;
+                height: 120px;
+            }
+
+            .hero {
+                min-height: 50vh;
+            }
+
+            .article-content {
+                padding: 25px;
             }
         }
 
@@ -396,113 +306,100 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="nav" id="nav">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">Bruno Chester Leardine</a>
-
-            <div class="nav-links">
-                <a href="#articles">Articles</a>
-            </div>
-
-        </div>
-    </nav>
-
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-content">
             <h1>GTM Systems & Revenue Intelligence</h1>
-            <div class="subtitle">I've been building scalable frameworks for Marketing, Growth, and Sales & Product-led revenue at hyper-growth companies</div>
-            <div class="tagline">In this blog I share recent explorations and framework blueprints.<br> Each article is a deep dive into the systems and frameworks I've built to solve complex GTM challenges at scale including real implementation details and lessons learned.</div>
-            <a href="#articles" class="cta-button">Explore My Work</a>
+            <div class="subtitle">Building scalable frameworks for Marketing, Growth, and Sales & Product-led revenue at hyper-growth companies</div>
+            <div class="tagline">Deep dives into systems and frameworks I've built to solve complex GTM challenges at scale.<br>Each article includes real implementation details and lessons learned.</div>
         </div>
     </section>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Section Header -->
-        <div class="section-header fade-in-on-scroll" id="articles">
-            <h2>Featured Articles</h2>
-            <p>Deep dives into the systems and frameworks I've built to solve complex GTM challenges at scale. Each piece includes real implementation details and lessons learned.</p>
-        </div>
-
         <!-- Articles Grid -->
         <div class="articles-grid">
-            <!-- Article 1: RAG for Revenue Teams -->
+            <!-- Featured Article: RAG for Revenue Teams -->
             <article class="article-card fade-in-on-scroll">
                 <div class="article-content">
-                    <div class="article-meta">Latest • Rag system • Revenue & Product Marketing</div>
-                    <h3 class="article-title">Sales Knowledge Assistant: AI-Powered RAG System for Revenue Teams</h3>
-                    <p class="article-excerpt"><b>Companies with strong product-market fit accumulate institutional knowledge faster than they can systematize it.</b> What worked when you had 5 reps and everyone knew everything doesn't work when you have 50 reps across multiple segments and geographies.</p>
+                    <div class="article-top">
+                        <div class="article-meta">Latest • RAG System • Revenue & Product Marketing</div>
+                        <h3 class="article-title">Sales Knowledge Assistant: AI-Powered RAG System for Revenue Teams</h3>
+                        <p class="article-excerpt"><b>Companies with strong product-market fit accumulate institutional knowledge faster than they can systematize it.</b> What worked when you had 5 reps and everyone knew everything doesn't work when you have 50 reps across multiple segments and geographies.</p>
                     </div>
-                    
-                    <a href="https://brunochester.github.io/blog/RAG_System_for_Revenue_Teams" class="read-more">Read Full Article →</a>
-                </div>
-            </article>
-        
-        <div class="articles-grid">
-            <!-- Article 1: GTM Intelligence System -->
-            <article class="article-card fade-in-on-scroll">
-                <div class="article-content">
-                    <div class="article-meta"> Network Analysis • AI Content Generation</div>
-                    <h3 class="article-title">GTM Intelligence System: AI-Powered Network Analysis for Growth, Sales & Field Engineering</h3>
-                    <p class="article-excerpt">Most companies track social media mentions by volume and sentiment. This project demonstrates a different approach: <b>mapping the ecosystem of developer conversations as a network, then using AI agents to generate targeted content based on real community discussions.</b></p>
+                    <div class="article-bottom">
+                        <a href="https://brunochester.github.io/blog/RAG_System_for_Revenue_Teams" class="read-more">Read Full Article →</a>
                     </div>
-                    
-                    <a href="https://brunochester.github.io/blog/gtm_intelligence_system" class="read-more">Read Full Article →</a>
                 </div>
             </article>
 
-            <!-- Article 2: Revenue Attribution -->
-            <div class="articles-grid">
-        <article class="article-card fade-in-on-scroll">
+            <!-- GTM Intelligence System -->
+            <article class="article-card fade-in-on-scroll">
                 <div class="article-content">
-                    <div class="article-meta">GTM Operations • Attribution Modeling • Pipeline Analytics</div>
-                    <h3 class="article-title">Building a Revenue Attribution for Pipeline Tracking and Capacity Planning</h3>
-                    <p class="article-excerpt">During my time at GitHub and Vercel, we built different attribution models that changed how we allocated marketing spend, structured our sales team, and made strategic decisions. The shift started when we asked: <b>where did that pipeline <i>actually</i> come from?</b></p>
+                    <div class="article-top">
+                        <div class="article-meta">Network Analysis • AI Content Generation</div>
+                        <h3 class="article-title">GTM Intelligence System: AI-Powered Network Analysis</h3>
+                        <p class="article-excerpt">Mapping the ecosystem of developer conversations as a network, then using AI agents to generate targeted content based on real community discussions.</p>
                     </div>
-                    
-                    <a href="https://brunochester.github.io/blog/pipeline_metrics" class="read-more">Read Full Article →</a>
+                    <div class="article-bottom">
+                        <a href="https://brunochester.github.io/blog/gtm_intelligence_system" class="read-more">Read Article →</a>
+                    </div>
                 </div>
             </article>
 
-            <!-- Article 3: PQL System -->
-        <div class="articles-grid">
+            <!-- Revenue Attribution -->
             <article class="article-card fade-in-on-scroll">
                 <div class="article-content">
-                    <div class="article-meta">Product-Led Growth • Machine Learning • Lead Scoring</div>
-                    <h3 class="article-title">Early days of GitHub GTM OPs: Building a Product Qualified Lead (PQL) System</h3>
-                    <p class="article-excerpt">Back in 2022/2023, I was deep into building what would become a comprehensive Product Qualified Lead system for GitHub Copilot. We started with a simple ML model to identify upsell opportunities and built from there. The key question: <b>how do we systematically identify users ready to upgrade?</b></p>
-                    
-                    <a href="https://brunochester.github.io/blog/pql" class="read-more">Read Full Article →</a>
+                    <div class="article-top">
+                        <div class="article-meta">GTM Operations • Attribution Modeling • Pipeline Analytics</div>
+                        <h3 class="article-title">Building Revenue Attribution for Pipeline Tracking</h3>
+                        <p class="article-excerpt">Attribution models that changed how we allocated marketing spend, structured sales teams, and made strategic decisions. Where did that pipeline actually come from?</p>
+                    </div>
+                    <div class="article-bottom">
+                        <a href="https://brunochester.github.io/blog/pipeline_metrics" class="read-more">Read Article →</a>
+                    </div>
                 </div>
             </article>
-        </div>
 
-         <!-- Article 4: Telemetry at scale -->
-        <div class="articles-grid">
+            <!-- PQL System -->
             <article class="article-card fade-in-on-scroll">
                 <div class="article-content">
-                    <div class="article-meta">GTM Operations • Telemetry Architecture • Enterprise Scale</div>
-                    <h3 class="article-title">GTM Operations: Telemetry at Scale for AI Anomaly Detection</h3>
-                    <p class="article-excerpt">GTM Operations at enterprise scale means orchestrating complex lead flows that span multiple systems: GTM automation platforms, CRM systems, data enrichment services, routing engines, and compliance frameworks. Each system generates signals, but <b>without telemetry infrastructure, these signals remain isolated and operationally useless.</b></p>
-                    
-                    <a href="https://brunochester.github.io/blog/telemetry_at_scale" class="read-more">Read Full Article →</a>
+                    <div class="article-top">
+                        <div class="article-meta">Product-Led Growth • Machine Learning • Lead Scoring</div>
+                        <h3 class="article-title">GitHub GTM OPs: Building a Product Qualified Lead System</h3>
+                        <p class="article-excerpt">Comprehensive PQL system for GitHub Copilot using ML models to identify upsell opportunities and systematically find users ready to upgrade.</p>
+                    </div>
+                    <div class="article-bottom">
+                        <a href="https://brunochester.github.io/blog/pql" class="read-more">Read Article →</a>
+                    </div>
                 </div>
             </article>
-        </div>
 
-        <!-- Article 5: AI Interface for Business Rules -->
-        <div class="articles-grid">
+            <!-- Telemetry at Scale -->
             <article class="article-card fade-in-on-scroll">
                 <div class="article-content">
-                    <div class="article-meta">GTM Operations • Day to Day Business Support • </div>
-                    <h3 class="article-title">AI-Powered GTM Operations: Natural Language Interface for Business Rules</h3>
-                    <p class="article-excerpt">Most GTM teams waste 3-4 hours per week navigating platform interfaces, hunting for business rules, and waiting for technical answers that could be instant. In the day to day flow this translates to many Slack back and forth.
+                    <div class="article-top">
+                        <div class="article-meta">GTM Operations • Telemetry Architecture • Enterprise Scale</div>
+                        <h3 class="article-title">GTM Operations: Telemetry at Scale for AI Anomaly Detection</h3>
+                        <p class="article-excerpt">Enterprise GTM telemetry infrastructure that spans multiple systems: automation platforms, CRM, enrichment services, routing engines, and compliance frameworks.</p>
+                    </div>
+                    <div class="article-bottom">
+                        <a href="https://brunochester.github.io/blog/telemetry_at_scale" class="read-more">Read Article →</a>
+                    </div>
+                </div>
+            </article>
 
-This implementation demonstrates a different approach: <b>AI agents that read GTM platform's business logic and serve it conversationally through existing communication channels.</b></p>
-                    
-                    <a href="https://brunochester.github.io/blog/natural_language_system_interface" class="read-more">Read Full Article →</a>
+            <!-- AI Interface for Business Rules -->
+            <article class="article-card fade-in-on-scroll">
+                <div class="article-content">
+                    <div class="article-top">
+                        <div class="article-meta">GTM Operations • Business Support • Multi-Agent AI</div>
+                        <h3 class="article-title">AI-Powered GTM Operations: Natural Language Interface</h3>
+                        <p class="article-excerpt">AI agents that read GTM platform business logic and serve it conversationally through existing communication channels, eliminating platform friction.</p>
+                    </div>
+                    <div class="article-bottom">
+                        <a href="https://brunochester.github.io/blog/natural_language_system_interface" class="read-more">Read Article →</a>
+                    </div>
                 </div>
             </article>
         </div>
@@ -517,36 +414,10 @@ This implementation demonstrates a different approach: <b>AI agents that read GT
     </footer>
 
     <script>
-        // Navigation scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('nav');
-            const heroHeight = document.getElementById('hero').offsetHeight;
-            
-            if (window.scrollY > heroHeight * 0.1) {
-                nav.classList.add('visible');
-            } else {
-                nav.classList.remove('visible');
-            }
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
         // Intersection Observer for scroll animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -564,7 +435,7 @@ This implementation demonstrates a different approach: <b>AI agents that read GT
 
         // Observe article cards separately for stagger effect
         document.querySelectorAll('.article-card').forEach((card, index) => {
-            card.style.transitionDelay = `${index * 0.2}s`;
+            card.style.transitionDelay = `${index * 0.1}s`;
             observer.observe(card);
         });
 
@@ -575,8 +446,8 @@ This implementation demonstrates a different approach: <b>AI agents that read GT
             const heroContent = hero.querySelector('.hero-content');
             
             if (scrolled < hero.offsetHeight) {
-                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
-                heroContent.style.opacity = 1 - (scrolled / hero.offsetHeight);
+                heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+                heroContent.style.opacity = 1 - (scrolled / (hero.offsetHeight * 0.8));
             }
         });
     </script>
