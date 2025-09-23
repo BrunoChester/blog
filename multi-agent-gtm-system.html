@@ -49,6 +49,71 @@
             line-height: 1.4;
         }
 
+        /* Demo Video Styles */
+        .demo-container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 0;
+        }
+
+        .demo-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .demo-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .demo-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .demo-content {
+            padding: 40px;
+            text-align: center;
+            background: #1a1a1a;
+        }
+
+        .demo-gif {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-gif:hover {
+            transform: scale(1.02);
+        }
+
+        .demo-caption {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ccc;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .demo-tech-note {
+            margin-top: 15px;
+            padding: 15px;
+            background: #333;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #888;
+            text-align: left;
+            border-left: 3px solid #666;
+        }
+
         /* Content */
         .content {
             margin-bottom: 60px;
@@ -126,29 +191,6 @@
             left: 0;
             color: #666;
         }
-      /* Animation classes */
-        .step-icon {
-            animation: scaleIn 0.6s ease forwards;
-            transform: scale(0);
-        }
-
-        .workflow-column:nth-child(1) .step-icon { animation-delay: 0.2s; }
-        .workflow-column:nth-child(2) .step-icon { animation-delay: 0.4s; }
-        .workflow-column:nth-child(3) .step-icon { animation-delay: 0.6s; }
-
-        @keyframes scaleIn {
-            to { transform: scale(1); }
-        }
-
-        strong {
-            font-weight: 700;
-            color: #1a1a1a;
-        }
-
-        em {
-            font-style: italic;
-            color: #1a1a1a;
-        }
 
         /* Key learning emphasis */
         .key-learning {
@@ -179,12 +221,8 @@
                 font-size: 20px;
             }
 
-            .learning-item {
-                padding: 30px 20px;
-            }
-
-            .production-reality {
-                padding: 30px 20px;
+            .demo-content {
+                padding: 20px;
             }
         }
 
@@ -213,7 +251,8 @@
                 <p class="intro-text">
                     After deploying this natural language interface system at Microsoft, several key implementation insights emerged from building a production-ready AI system that handles live business data. These learnings shaped how we approached multi-agent coordination and system reliability.
                 </p>
-              <!-- Demo Video Section -->
+
+                <!-- Demo Video Section -->
                 <div class="demo-container">
                     <div class="demo-header">
                         <div class="demo-title">Live System Demonstration</div>
@@ -232,131 +271,117 @@
                 </div>
             </section>
 
-            <div class="learning-grid">
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 01 ]</div>
-                    <h3 class="learning-title">Agent Specialization Drives Reliability</h3>
-                    <p class="learning-desc">
-                        The three-agent architecture (data sourcing → analysis → visualization) proved essential for maintaining system reliability. Each agent has a narrowly defined role:
-                    </p>
-                    <div class="agent-roles">
-                        <ul>
-                            <li><strong>Data Agent:</strong> Exclusively handles API connections and data extraction</li>
-                            <li><strong>Analysis Agent:</strong> Focuses solely on business rule interpretation and logic processing</li>
-                            <li><strong>Visualization Agent:</strong> Specializes in formatting and presenting insights</li>
-                        </ul>
-                    </div>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Specialized agents with clear boundaries perform more consistently than general-purpose agents attempting multiple tasks. This separation also simplified debugging—when issues arose, we could quickly isolate which agent was responsible.
-                    </div>
-                </div>
-
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 02 ]</div>
-                    <h3 class="learning-title">Control Logic Evolution: From Simple to ReAct</h3>
-                    <p class="learning-desc">
-                        We initially implemented basic tool-use patterns but evolved toward a ReAct approach (Plan → Execute → Observe → Iterate) for the analysis agent. This was particularly critical when handling complex GTM business rules that required multiple API calls or data transformations.
-                    </p>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Start simple with tool-use patterns, but prepare to implement more sophisticated control logic as system complexity grows. The "show your work" feature became possible because we could capture each agent's reasoning steps.
-                    </div>
-                </div>
-
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 03 ]</div>
-                    <h3 class="learning-title">Memory Strategy for Live Business Data</h3>
-                    <p class="learning-desc">
-                        Unlike traditional chatbots, our system needed to balance fresh data with conversational context. We implemented a hybrid memory approach:
-                    </p>
-                    <div class="strategy-list">
-                        <ul>
-                            <li>Sliding window for conversation context</li>
-                            <li>Scheduled refresh for business rules (weekly API pulls)</li>
-                            <li>Session-based state for multi-step queries</li>
-                        </ul>
-                    </div>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Live business data requires different memory strategies than general knowledge systems. The weekly refresh cycle matched our platform's change frequency—over-fetching created unnecessary load without improving accuracy.
-                    </div>
-                </div>
-
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 04 ]</div>
-                    <h3 class="learning-title">Tool Design for Enterprise APIs</h3>
-                    <p class="learning-desc">
-                        Creating tools that interface with GTM platform APIs required careful consideration of error handling and data validation:
-                    </p>
-                    <div class="tool-list">
-                        <ul>
-                            <li>Clear naming conventions for API endpoints</li>
-                            <li>Comprehensive error handling for API failures</li>
-                            <li>Schema validation for incoming business rule data</li>
-                            <li>Fallback responses when live data is unavailable</li>
-                        </ul>
-                    </div>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Enterprise API integrations need robust error handling. Business users expect consistent responses even when underlying systems have issues.
-                    </div>
-                </div>
-
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 05 ]</div>
-                    <h3 class="learning-title">Multi-Agent Coordination Challenges</h3>
-                    <p class="learning-desc">
-                        The most complex aspect was managing information flow between agents while maintaining transparency. Our approach:
-                    </p>
-                    <div class="coordination-list">
-                        <ul>
-                            <li><strong>Structured handoffs:</strong> Each agent outputs structured data for the next</li>
-                            <li><strong>Error propagation:</strong> Failed steps halt the pipeline with clear error messages</li>
-                            <li><strong>State preservation:</strong> The "show your work" feature required maintaining each agent's reasoning chain</li>
-                        </ul>
-                    </div>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Multi-agent systems require explicit coordination protocols. Ad-hoc information sharing between agents creates unpredictable behaviors that are difficult to debug in production.
-                    </div>
-                </div>
-
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 06 ]</div>
-                    <h3 class="learning-title">Raw LLM Output Handling in Enterprise Context</h3>
-                    <p class="learning-desc">
-                        Post-processing became critical for enterprise deployment:
-                    </p>
-                    <div class="tool-list">
-                        <ul>
-                            <li>Converting analysis results to consistent JSON schemas</li>
-                            <li>Validating business rule interpretations against known patterns</li>
-                            <li>Formatting outputs for integration with existing communication tools</li>
-                            <li>Maintaining audit trails for compliance</li>
-                        </ul>
-                    </div>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Enterprise systems require structured, auditable outputs. Raw LLM responses need significant post-processing to meet business requirements.
-                    </div>
-                </div>
-
-                <div class="learning-item">
-                    <div class="learning-number">[ learning 07 ]</div>
-                    <h3 class="learning-title">Scaling Considerations That Shaped Our Architecture</h3>
-                    <p class="learning-desc">
-                        Several scaling decisions proved crucial:
-                    </p>
-                    <div class="coordination-list">
-                        <ul>
-                            <li><strong>API rate limiting:</strong> Implemented queuing for high-usage periods</li>
-                            <li><strong>Agent resource allocation:</strong> Each agent runs independently to prevent cascading failures</li>
-                            <li><strong>Monitoring and observability:</strong> Comprehensive logging for each agent's performance</li>
-                            <li><strong>Graceful degradation:</strong> System continues operating even when individual agents fail</li>
-                        </ul>
-                    </div>
-                    <div class="key-learning">
-                        <strong>Key Learning:</strong> Design for failure from day one. In multi-agent systems, individual component failures should not crash the entire system.
-                    </div>
-                </div>
+            <div class="learning-section">
+                <div class="learning-number">1.</div>
+                <h3 class="learning-title">Agent Specialization Drives Reliability</h3>
+                <p>
+                    The three-agent architecture (data sourcing → analysis → visualization) proved essential for maintaining system reliability. Each agent has a narrowly defined role:
+                </p>
+                <ul class="feature-list">
+                    <li><strong>Data Agent:</strong> Exclusively handles API connections and data extraction</li>
+                    <li><strong>Analysis Agent:</strong> Focuses solely on business rule interpretation and logic processing</li>
+                    <li><strong>Visualization Agent:</strong> Specializes in formatting and presenting insights</li>
+                </ul>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Specialized agents with clear boundaries perform more consistently than general-purpose agents attempting multiple tasks. This separation also simplified debugging—when issues arose, we could quickly isolate which agent was responsible.
+                </p>
             </div>
 
-            <div class="production-reality">
+            <div class="learning-section">
+                <div class="learning-number">2.</div>
+                <h3 class="learning-title">Control Logic Evolution: From Simple to ReAct</h3>
+                <p>
+                    We initially implemented basic tool-use patterns but evolved toward a ReAct approach (Plan → Execute → Observe → Iterate) for the analysis agent. This was particularly critical when handling complex GTM business rules that required multiple API calls or data transformations.
+                </p>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Start simple with tool-use patterns, but prepare to implement more sophisticated control logic as system complexity grows. The "show your work" feature became possible because we could capture each agent's reasoning steps.
+                </p>
+            </div>
+
+            <div class="learning-section">
+                <div class="learning-number">3.</div>
+                <h3 class="learning-title">Memory Strategy for Live Business Data</h3>
+                <p>
+                    Unlike traditional chatbots, our system needed to balance fresh data with conversational context. We implemented a hybrid memory approach:
+                </p>
+                <ul class="feature-list">
+                    <li>Sliding window for conversation context</li>
+                    <li>Scheduled refresh for business rules (weekly API pulls)</li>
+                    <li>Session-based state for multi-step queries</li>
+                </ul>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Live business data requires different memory strategies than general knowledge systems. The weekly refresh cycle matched our platform's change frequency—over-fetching created unnecessary load without improving accuracy.
+                </p>
+            </div>
+
+            <div class="learning-section">
+                <div class="learning-number">4.</div>
+                <h3 class="learning-title">Tool Design for Enterprise APIs</h3>
+                <p>
+                    Creating tools that interface with GTM platform APIs required careful consideration of error handling and data validation:
+                </p>
+                <ul class="feature-list">
+                    <li>Clear naming conventions for API endpoints</li>
+                    <li>Comprehensive error handling for API failures</li>
+                    <li>Schema validation for incoming business rule data</li>
+                    <li>Fallback responses when live data is unavailable</li>
+                </ul>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Enterprise API integrations need robust error handling. Business users expect consistent responses even when underlying systems have issues.
+                </p>
+            </div>
+
+            <div class="learning-section">
+                <div class="learning-number">5.</div>
+                <h3 class="learning-title">Multi-Agent Coordination Challenges</h3>
+                <p>
+                    The most complex aspect was managing information flow between agents while maintaining transparency. Our approach:
+                </p>
+                <ul class="feature-list">
+                    <li><strong>Structured handoffs:</strong> Each agent outputs structured data for the next</li>
+                    <li><strong>Error propagation:</strong> Failed steps halt the pipeline with clear error messages</li>
+                    <li><strong>State preservation:</strong> The "show your work" feature required maintaining each agent's reasoning chain</li>
+                </ul>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Multi-agent systems require explicit coordination protocols. Ad-hoc information sharing between agents creates unpredictable behaviors that are difficult to debug in production.
+                </p>
+            </div>
+
+            <div class="learning-section">
+                <div class="learning-number">6.</div>
+                <h3 class="learning-title">Raw LLM Output Handling in Enterprise Context</h3>
+                <p>
+                    Post-processing became critical for enterprise deployment:
+                </p>
+                <ul class="feature-list">
+                    <li>Converting analysis results to consistent JSON schemas</li>
+                    <li>Validating business rule interpretations against known patterns</li>
+                    <li>Formatting outputs for integration with existing communication tools</li>
+                    <li>Maintaining audit trails for compliance</li>
+                </ul>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Enterprise systems require structured, auditable outputs. Raw LLM responses need significant post-processing to meet business requirements.
+                </p>
+            </div>
+
+            <div class="learning-section">
+                <div class="learning-number">7.</div>
+                <h3 class="learning-title">Scaling Considerations That Shaped Our Architecture</h3>
+                <p>
+                    Several scaling decisions proved crucial:
+                </p>
+                <ul class="feature-list">
+                    <li><strong>API rate limiting:</strong> Implemented queuing for high-usage periods</li>
+                    <li><strong>Agent resource allocation:</strong> Each agent runs independently to prevent cascading failures</li>
+                    <li><strong>Monitoring and observability:</strong> Comprehensive logging for each agent's performance</li>
+                    <li><strong>Graceful degradation:</strong> System continues operating even when individual agents fail</li>
+                </ul>
+                <p class="key-learning">
+                    <strong>Key Learning:</strong> Design for failure from day one. In multi-agent systems, individual component failures should not crash the entire system.
+                </p>
+            </div>
+
+            <div class="final-section">
                 <h3>The Production Reality</h3>
                 <p>
                     Building a multi-agent system for enterprise use revealed that success depends as much on operational concerns (monitoring, error handling, state management) as on AI capabilities. The fundamentals—clear agent roles, robust error handling, and transparent reasoning—proved more critical than sophisticated AI techniques.
