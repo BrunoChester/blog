@@ -114,6 +114,69 @@
             border-left: 3px solid #666;
         }
 
+        /* Simple Example Container */
+        .simple-example-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .simple-example-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            background: #f0f0f0;
+        }
+
+        .simple-example-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .simple-example-subtitle {
+            font-size: 13px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .simple-example-content {
+            padding: 20px;
+        }
+
+        .prompt-box {
+            background: #2a2a2a;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .prompt-text {
+            color: #e0e0e0;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .prompt-label {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .output-image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
         /* Content */
         .content {
             margin-bottom: 60px;
@@ -224,6 +287,14 @@
             .demo-content {
                 padding: 20px;
             }
+
+            .simple-example-content {
+                padding: 15px;
+            }
+
+            .prompt-text {
+                font-size: 13px;
+            }
         }
 
         strong {
@@ -296,6 +367,23 @@
                 <p class="key-learning">
                     <strong>Key Learning:</strong> Start simple with tool-use patterns, but prepare to implement more sophisticated control logic as system complexity grows. The "show your work" feature became possible because we could capture each agent's reasoning steps.
                 </p>
+
+                <!-- Simple Example Section -->
+                <div class="simple-example-container">
+                    <div class="simple-example-header">
+                        <div class="simple-example-title">The Very First Output</div>
+                        <div class="simple-example-subtitle">Starting with the simplest possible implementation</div>
+                    </div>
+                    <div class="simple-example-content">
+                        <div class="prompt-label">Initial Prompt:</div>
+                        <div class="prompt-box">
+                            <div class="prompt-text">
+                                "Please identify similarities and differences in the Marketo SmartLists from the campaigns scheduled for 10/21/2024 by analyzing what traits are unique and what traits overlap between the SmartLists"
+                            </div>
+                        </div>
+                        <img src="https://github.com/BrunoChester/blog/blob/main/assets/images/ai_output.png" alt="First AI Model Output - Marketo SmartList Analysis" class="output-image">
+                    </div>
+                </div>
             </div>
 
             <div class="learning-section">
