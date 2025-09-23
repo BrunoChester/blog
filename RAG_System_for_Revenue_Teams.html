@@ -27,9 +27,36 @@
             padding: 0 20px;
         }
 
+        /* Navigation */
+        .nav {
+            padding: 20px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .back-to-blog {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+
+        .back-to-blog:hover {
+            color: #1a1a1a;
+        }
+
+        .back-to-blog::before {
+            content: "←";
+            font-size: 16px;
+        }
+
         /* Header */
         .header {
-            padding: 60px 0 40px 0;
+            padding: 20px 0 40px 0;
             border-bottom: 1px solid #e0e0e0;
             margin-bottom: 40px;
         }
@@ -385,6 +412,11 @@
 </head>
 <body>
     <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="https://brunochester.github.io/blog/" class="back-to-blog">Back to Blog</a>
+        </nav>
+
         <header class="header">
             <h1>Integrated Sales Knowledge: RAG System for Revenue Teams</h1>
             <div class="subtitle">
