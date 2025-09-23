@@ -221,6 +221,71 @@
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
+        /* Demo Video Styles */
+        .demo-container {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            padding: 0;
+        }
+
+        .demo-header {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: #fafafa;
+        }
+
+        .demo-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .demo-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .demo-content {
+            padding: 40px;
+            text-align: center;
+            background: #1a1a1a;
+        }
+
+        .demo-gif {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-gif:hover {
+            transform: scale(1.02);
+        }
+
+        .demo-caption {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ccc;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .demo-tech-note {
+            margin-top: 15px;
+            padding: 15px;
+            background: #333;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #888;
+            text-align: left;
+            border-left: 3px solid #666;
+        }
+
         /* Content */
         .content {
             margin-bottom: 60px;
@@ -449,6 +514,10 @@
                 border-right: none;
                 border-bottom: 1px solid #e0e0e0;
             }
+
+            .demo-content {
+                padding: 20px;
+            }
         }
 
         /* Animation classes */
@@ -568,8 +637,27 @@
                 </div>
 
                 <p>The system operates on three layers: <strong>data extraction</strong> pulls live business rules from your GTM platform API, <strong>AI processing</strong> converts structured data into conversational context, and <strong>communication integration</strong> delivers answers where teams already work.</p>
+                
+                <!-- Demo Video Section -->
+                <div class="demo-container">
+                    <div class="demo-header">
+                        <div class="demo-title">Live System Demonstration</div>
+                        <div class="demo-subtitle">Multi-agent workflow with transparency layer</div>
+                    </div>
+                    <div class="demo-content">
+                        <img src="../assets/images/project_sophia_uat_demo.gif" alt="Project Sophia UAT Demo - Natural Language GTM Interface" class="demo-gif">
+                        <div class="demo-caption">
+                            <strong>Watch the three-agent system in action:</strong><br>
+                            Natural language query → Data sourcing → Analysis → Visualization with full "show your work" transparency
+                        </div>
+                        <div class="demo-tech-note">
+                            <strong>Technical Note:</strong> The demo shows the complete multi-agent workflow where each AI agent specializes in a specific task (data extraction, analysis, visualization) while maintaining full auditability of the reasoning process through the transparency layer.
+                        </div>
+                    </div>
+                </div>
             </section>
 
+            <section class="section">
                 <h2>What makes this different from traditional chatbots</h2>
 
                 <p>
